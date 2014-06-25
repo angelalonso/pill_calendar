@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="buttons.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Send"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Send"
+       style="overflow:visible;">
+      <path
+         id="path3810"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;"
+         transform="scale(0.2) rotate(180) translate(6,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mend"
+       style="overflow:visible;">
+      <path
+         id="path3804"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;"
+         transform="scale(0.4) rotate(180) translate(10,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.5676443"
+     inkscape:cx="94.300999"
+     inkscape:cy="-35.0394"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1539"
+     inkscape:window-height="876"
+     inkscape:window-x="61"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#4d4d4d;fill-opacity:1;stroke:none"
+       id="rect2985"
+       width="44"
+       height="44"
+       x="0"
+       y="1008.3622"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/close.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       ry="9.3333387" />
+    <rect
+       ry="0"
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/close.png"
+       y="1018.5021"
+       x="0"
+       height="33.860077"
+       width="33.860077"
+       id="rect2986"
+       style="fill:#4d4d4d;fill-opacity:1;stroke:none" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3760"
+       d="m 2,1029.7348 7.77817,7.7781 -7.77817,7.7782 7.07107,7.0711 7.77817,-7.7782 7.77817,7.7782 7.07107,-7.0711 -7.77817,-7.7782 7.77817,-7.7781 -7.07107,-7.0711 -7.77817,7.7782 -7.77817,-7.7782 L 2,1029.7348 z"
+       style="fill:#cccccc;fill-opacity:1;stroke:none"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/close.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#ff2a2a;fill-opacity:1;stroke:none"
+       d="m 0,1029.7348 7.77817,7.7781 -7.77817,7.7782 7.07107,7.0711 7.77817,-7.7782 7.77817,7.7782 7.07107,-7.0711 -7.77817,-7.7782 7.77817,-7.7781 -7.07107,-7.0711 -7.77817,7.7782 -7.77817,-7.7782 L 0,1029.7348 z"
+       id="rect3755"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/close.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       ry="9.3333387"
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/order.png"
+       y="1008.3622"
+       x="60"
+       height="44"
+       width="44"
+       id="rect2987"
+       style="fill:#4d4d4d;fill-opacity:1;stroke:none" />
+    <rect
+       style="fill:#4d4d4d;fill-opacity:1;stroke:none"
+       id="rect2989"
+       width="33.860077"
+       height="33.860077"
+       x="60"
+       y="1018.5021"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/order.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       ry="0" />
+    <rect
+       style="fill:none;stroke:#cccccc;stroke-width:1.50000000000000000;stroke-linecap:square;stroke-miterlimit:2.60000000000000009;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2997"
+       width="21.645126"
+       height="25.332371"
+       x="61.885292"
+       y="1025.2927"
+       ry="0"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/order.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#cccccc;stroke-width:1.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 72.514855,1027.919 0,20.2064"
+       id="path3767"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/order.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3769"
+       d="m 70.39439,1028.5407 -6.441375,0"
+       style="fill:none;stroke:#cccccc;stroke-width:1.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/order.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#cccccc;stroke-width:1.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 70.39439,1032.5407 -6.441375,0"
+       id="path3771"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/order.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3773"
+       d="m 70.39439,1036.5407 -6.441375,0"
+       style="fill:none;stroke:#cccccc;stroke-width:1.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/order.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#cccccc;stroke-width:1.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 70.39439,1040.5407 -6.441375,0"
+       id="path3775"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/order.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3777"
+       d="m 70.39439,1044.5407 -6.441375,0"
+       style="fill:none;stroke:#cccccc;stroke-width:1.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/order.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#cccccc;stroke-width:1.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 81.299743,1044.5407 -6.441375,0"
+       id="path3779"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/order.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3781"
+       d="m 81.299743,1040.5407 -6.441375,0"
+       style="fill:none;stroke:#cccccc;stroke-width:1.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/order.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#cccccc;stroke-width:1.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 81.299743,1036.5407 -6.441375,0"
+       id="path3783"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/order.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3785"
+       d="m 81.299743,1032.5407 -6.441375,0"
+       style="fill:none;stroke:#cccccc;stroke-width:1.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/order.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#cccccc;stroke-width:1.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 81.299743,1028.5407 -6.441375,0"
+       id="path3787"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/order.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <g
+       id="g4793"
+       style="fill:#cccccc;stroke:#cccccc"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/order.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         style="fill:#cccccc;fill-opacity:1;stroke:#cccccc;stroke-width:5.04449224000000029;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:none"
+         d="m 94.658484,1024.4214 0,22.1202"
+         id="path4795"
+         inkscape:connector-curvature="0" />
+      <path
+         sodipodi:type="star"
+         style="fill:#cccccc;fill-opacity:1;stroke:#cccccc;stroke-width:2.70000004999999987;stroke-linecap:square;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         id="path4797"
+         sodipodi:sides="3"
+         sodipodi:cx="76.395103"
+         sodipodi:cy="1018.7161"
+         sodipodi:r1="6.5689154"
+         sodipodi:r2="3.2844577"
+         sodipodi:arg1="1.5707963"
+         sodipodi:arg2="2.6179939"
+         inkscape:flatsided="false"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="m 76.395104,1025.285 -2.844424,-4.9266 -2.844424,-4.9267 5.688848,0 5.688847,0 -2.844424,4.9267 z"
+         inkscape:transform-center-y="1.4161121"
+         transform="matrix(0.86231621,0,0,0.86231621,28.792037,164.62677)" />
+    </g>
+    <g
+       id="g4789"
+       transform="translate(-2,0)"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/order.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       style="stroke:#4ebeff;stroke-opacity:1;fill:#4ebeff;fill-opacity:1">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3789"
+         d="m 94.658484,1024.4214 0,22.1202"
+         style="fill:#4ebeff;fill-opacity:1;stroke:#4ebeff;stroke-width:5.04449224000000029;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:none" />
+      <path
+         transform="matrix(0.86231621,0,0,0.86231621,28.792037,164.62677)"
+         inkscape:transform-center-y="1.4161121"
+         d="m 76.395104,1025.285 -2.844424,-4.9266 -2.844424,-4.9267 5.688848,0 5.688847,0 -2.844424,4.9267 z"
+         inkscape:randomized="0"
+         inkscape:rounded="0"
+         inkscape:flatsided="false"
+         sodipodi:arg2="2.6179939"
+         sodipodi:arg1="1.5707963"
+         sodipodi:r2="3.2844577"
+         sodipodi:r1="6.5689154"
+         sodipodi:cy="1018.7161"
+         sodipodi:cx="76.395103"
+         sodipodi:sides="3"
+         id="path4787"
+         style="fill:#4ebeff;fill-opacity:1;stroke:#4ebeff;stroke-width:2.70000004999999987;stroke-linecap:square;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         sodipodi:type="star" />
+    </g>
+    <rect
+       style="fill:#4d4d4d;fill-opacity:1;stroke:none"
+       id="rect3085"
+       width="44"
+       height="44"
+       x="120"
+       y="1008.3622"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/save.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       ry="9.3333387" />
+    <rect
+       ry="0"
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/save.png"
+       y="1018.5021"
+       x="120"
+       height="33.860077"
+       width="33.860077"
+       id="rect3087"
+       style="fill:#4d4d4d;fill-opacity:1;stroke:none" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/save.png"
+       ry="0"
+       y="1028.0975"
+       x="121.85771"
+       height="22.555162"
+       width="22.555162"
+       id="rect3089"
+       style="fill:none;stroke:#cccccc;stroke-width:1.44483817;stroke-linecap:square;stroke-miterlimit:2.5999999;stroke-opacity:1;stroke-dasharray:none" />
+    <g
+       id="g3918"
+       transform="translate(2,0)"
+       style="stroke:#cccccc"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/save.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3920"
+         d="m 155.52293,1014.6111 -12.65679,-0.015 -6.15693,8.7698"
+         style="fill:none;stroke:#cccccc;stroke-width:3.79583668999999979;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:none"
+         sodipodi:nodetypes="ccc" />
+      <path
+         transform="matrix(0.53105926,0.37283539,-0.37283539,0.53105926,477.45438,451.75811)"
+         inkscape:transform-center-y="-0.1883827"
+         d="m 76.395104,1025.285 -2.844424,-4.9266 -2.844424,-4.9267 5.688848,0 5.688847,0 -2.844424,4.9267 z"
+         inkscape:randomized="0"
+         inkscape:rounded="0"
+         inkscape:flatsided="false"
+         sodipodi:arg2="2.6179939"
+         sodipodi:arg1="1.5707963"
+         sodipodi:r2="3.2844577"
+         sodipodi:r1="6.5689154"
+         sodipodi:cy="1018.7161"
+         sodipodi:cx="76.395103"
+         sodipodi:sides="3"
+         id="path3922"
+         style="fill:#4eff88;fill-opacity:1;stroke:#cccccc;stroke-width:2.70000004999999987;stroke-linecap:square;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         sodipodi:type="star"
+         inkscape:transform-center-x="-0.89829254" />
+    </g>
+    <path
+       inkscape:connector-curvature="0"
+       id="path3121"
+       d="m 155.52293,1014.6111 -12.65679,-0.015 -6.15693,8.7698"
+       style="fill:none;stroke:#2cd764;stroke-width:3.79583668999999979;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:none"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/save.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       transform="matrix(0.53105926,0.37283539,-0.37283539,0.53105926,477.45438,451.75811)"
+       inkscape:transform-center-y="-0.1883827"
+       d="m 76.395104,1025.285 -2.844424,-4.9266 -2.844424,-4.9267 5.688848,0 5.688847,0 -2.844424,4.9267 z"
+       inkscape:randomized="0"
+       inkscape:rounded="0"
+       inkscape:flatsided="false"
+       sodipodi:arg2="2.6179939"
+       sodipodi:arg1="1.5707963"
+       sodipodi:r2="3.2844577"
+       sodipodi:r1="6.5689154"
+       sodipodi:cy="1018.7161"
+       sodipodi:cx="76.395103"
+       sodipodi:sides="3"
+       id="path3123"
+       style="fill:#2cd764;fill-opacity:1;stroke:#2cd764;stroke-width:2.70000004999999987;stroke-linecap:square;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       sodipodi:type="star"
+       inkscape:transform-center-x="-0.89829254"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/save.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#cccccc;fill-opacity:1;stroke:none;stroke-width:2.70000004999999987;stroke-linecap:square;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect3125"
+       width="15.888086"
+       height="10.592057"
+       x="125.14923"
+       y="1039.4072"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/save.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#cccccc;fill-opacity:1;stroke:none"
+       d="M 128.96875 1028 L 128.96875 1036.1562 L 139.90625 1036.1562 L 139.90625 1028 L 128.96875 1028 z M 135.625 1028.9062 L 138.0625 1028.9062 L 138.0625 1034.8438 L 135.625 1034.8438 L 135.625 1028.9062 z "
+       id="rect3907"
+       inkscape:export-filename="/home/aaf/scripts/e-yo/eyo_python/deco/save.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+  </g>
+</svg>
