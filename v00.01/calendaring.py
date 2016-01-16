@@ -148,7 +148,7 @@ def sintrom_conflict(entries,newentry_date):
 	return conflicts
 
 def main():
-	filename = '/home/aaf/Documentos/Calendar.csv'
+	filename = '/home/aaf/Documents/Calendar.csv'
 	now_raw = datetime.datetime.now()
 	now = now_raw.strftime("%m/%y/%d")
 	file_in = open(filename)
