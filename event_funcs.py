@@ -1,6 +1,12 @@
 import datetime
 
-def add(service):
+def add(service, cal_name):
+    created_event = service.events().quickAdd(
+        calendarId='9mabb318guot9t25tmasnjfrtk@group.calendar.google.com',
+        text='Appointment at Somewhere on January 17th 10am-10:25am').execute()
+
+
+def addaux(service, cal_name):
     now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
 
     event = {
@@ -29,7 +35,7 @@ def add(service):
       },
     }
 
-    event = service.events().insert(calendarId='Pills', body=event).execute()
+    event = service.events().insert(calendarId=cal_name, body=event).execute()
     print 'Event created: %s' % (event.get('htmlLink'))
 
 def listEvents(service):

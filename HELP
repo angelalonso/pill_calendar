@@ -6,3 +6,6 @@ Was due to running the credentials part with SCOPES = 'https://www.googleapis.co
 
 Had to remove everything under ~/.credentials, then run origin (bear in mind that flags = argparse is not on my main program), and only then run the script normally
 
+### 404 on quick add
+
+??

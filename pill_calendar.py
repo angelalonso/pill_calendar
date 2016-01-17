@@ -76,7 +76,7 @@ def main(argv):
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('calendar', 'v3', http=http)
-
+    cal_name = 'Pill_Calendar'
     try:
         if sys.argv[1] == "readcsv":
             events.listCsv()
@@ -85,8 +85,12 @@ def main(argv):
                 cals.create_if_notexisting(service, sys.argv[2])
             except IndexError:
                 showhelp(2)
+        elif sys.argv[1] == "clearcal":
+            cals.clearCal(service)
+        elif sys.argv[1] == "delcal":
+            cals.delCal(service)
         elif sys.argv[1] == "newevent":
-            events.add(service)
+            events.add(service, cal_name)
         elif sys.argv[1] == "listcal":
             print(cals.list(service))
         elif sys.argv[1] == "getID":

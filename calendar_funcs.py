@@ -24,14 +24,12 @@ def new(service, cal_name):
     print created_calendar['id']
 
 
-def clear(service, cal_name):
-    calendar = {
-        'summary': cal_name
-    }
+def clearCal(service):
+    service.calendars().clear(calendarId='9mabb318guot9t25tmasnjfrtk@group.calendar.google.com').execute()
 
-    created_calendar = service.calendars().insert(body=calendar).execute()
 
-    print created_calendar['id']
+def delCal(service):
+    service.calendars().delete(calendarId='9mabb318guot9t25tmasnjfrtk@group.calendar.google.com').execute()
 
 
 def create_if_notexisting(service, cal_name):
