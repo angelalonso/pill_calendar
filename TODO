@@ -1,0 +1,10 @@
+- Configuration should go on a file:
+  - Calendar name
+
+- First time of running credentials could be done in another Script, derived from origin.py
+  - RUNME.py
+  - test it
+
+- Include the credentials in the github project safely.
+
+
