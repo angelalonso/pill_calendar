@@ -1,16 +1,18 @@
 import datetime
 
+
 def list(service):
-    resultList = [];
+    resultList = []
     page_token = None
     while True:
-        calendar_list = service.calendarList().list(pageToken=page_token).execute()
-        for calendar_list_entry in calendar_list['items']:
+        cal_list = service.calendarList().list(pageToken=page_token).execute()
+        for calendar_list_entry in cal_list['items']:
             resultList.append(calendar_list_entry['summary'])
-        page_token = calendar_list.get('nextPageToken')
+        page_token = cal_list.get('nextPageToken')
         if not page_token:
             break
     return resultList
+
 
 def new(service, cal_name):
     calendar = {
@@ -22,6 +24,15 @@ def new(service, cal_name):
     print created_calendar['id']
 
 
+def clear(service, cal_name):
+    calendar = {
+        'summary': cal_name
+    }
+
+    created_calendar = service.calendars().insert(body=calendar).execute()
+
+    print created_calendar['id']
+
 
 def create_if_notexisting(service, cal_name):
     if cal_name in list(service):
@@ -32,11 +43,11 @@ def create_if_notexisting(service, cal_name):
 
 
 def listEntries(service):
-    now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
+    now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' UTC time
     print('Getting the upcoming 10 events')
     eventsResult = service.events().list(
-        calendarId='alonsofonseca.angel@gmail.com', timeMin=now, maxResults=10, singleEvents=True,
-        orderBy='startTime').execute()
+        calendarId='alonsofonseca.angel@gmail.com', timeMin=now,
+        maxResults=10, singleEvents=True, orderBy='startTime').execute()
     events = eventsResult.get('items', [])
 
     if not events:
@@ -45,14 +56,14 @@ def listEntries(service):
         start = event['start'].get('dateTime', event['start'].get('date'))
         print(start, event['summary'])
 
-def getIDEntry(service,search_word):
+
+def getIDEntry(service, search_word):
     print('Getting event: ' + search_word)
-    now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
+    now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' UTC time
     print(now)
-    time_min ='2016-01-01T14:11:59.408061Z'
     eventsResult = service.events().list(
-        calendarId='alonsofonseca.angel@gmail.com', q=search_word, maxResults=250, singleEvents=True,
-        orderBy='startTime').execute()
+        calendarId='alonsofonseca.angel@gmail.com', q=search_word,
+        maxResults=250, singleEvents=True, orderBy='startTime').execute()
     events = eventsResult.get('items', [])
 
     if not events:
@@ -63,4 +74,3 @@ def getIDEntry(service,search_word):
 
 if __name__ == '__main__':
     listEntries()
-
