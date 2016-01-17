@@ -7,8 +7,6 @@
 """
 # First, general imports
 from __future__ import print_function
-import datetime
-import getopt
 import httplib2
 import os
 import sys
@@ -39,7 +37,6 @@ def get_credentials():
         Credentials, the obtained credential.
     """
 
-
     home_dir = os.path.expanduser('~')
     credential_dir = os.path.join(home_dir, '.credentials')
     if not os.path.exists(credential_dir):
@@ -50,30 +47,37 @@ def get_credentials():
     store = oauth2client.file.Storage(credential_path)
     credentials = store.get()
     if not credentials or credentials.invalid:
-
         flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
         flow.user_agent = APPLICATION_NAME
+        flags = None
         if flags:
             credentials = tools.run_flow(flow, store, flags)
-        else: # Needed only for compatibility with Python 2.6
+        else:  # Needed only for compatibility with Python 2.6
             credentials = tools.run(flow, store)
         print('Storing credentials to ' + credential_path)
     return credentials
 
+
+def preview(service):
+    pass
+
+
 def showhelp(exitcode):
-    print(sys.argv[0] +' <inputfile> -o <outputfile>')
+    print(sys.argv[0] + ' <inputfile> -o <outputfile>')
     sys.exit(exitcode)
+
 
 def main(argv):
     """Shows basic usage of the Google Calendar API.
 
-    Creates a Google Calendar API service object and proceeds according to parameters
+    Creates a Google Calendar API service object
+      and proceeds according to parameters
     """
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('calendar', 'v3', http=http)
 
-    try:  
+    try:
         if sys.argv[1] == "readcsv":
             events.listCsv()
         elif sys.argv[1] == "newcal":
@@ -92,11 +96,10 @@ def main(argv):
                 search_word = ""
             events.getIDEvent(service, search_word)
         else:
-            
+            preview(service)
     except IndexError:
         events.listEvents(service)
 
 
 if __name__ == '__main__':
     main(sys.argv[1:])
-
