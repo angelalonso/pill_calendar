@@ -1,4 +1,13 @@
+- Purpose:
+  - Add/Change after measuring into CSV
+    - Update without touching existing
+    - ONLY do the above
+  - Eventually, automate the above
+
+
+
 - Configuration should go on a file:
+
   - Calendar name
 
 - First time of running credentials could be done in another Script, derived from origin.py

@@ -18,6 +18,7 @@ from oauth2client import tools
 # Finally, the other py files in this directory
 import event_funcs as events
 import calendar_funcs as cals
+import csv_funcs as csvs
 
 
 """ Definition of some constants that Google needs
@@ -29,6 +30,8 @@ APPLICATION_NAME = 'Google Calendar API Python Quickstart'
 """ TODO: This should go in a config file
 """
 CAL_NAME = 'Pill_Calendar'
+CSV_FILE = '/home/aaf/Software/Dev/calendar_py/Calendar.csv'
+
 
 def get_credentials():
     """Gets valid user credentials from storage.
@@ -81,15 +84,17 @@ def main(argv):
     service = discovery.build('calendar', 'v3', http=http)
     try:
         if sys.argv[1] == "readcsv":
-            events.listCsv()
+            print(csvs.readintoDict(CSV_FILE))
+        elif sys.argv[1] == "loadcsv":
+            events.loadFromCSV(service, CSV_FILE, CAL_NAME)
         elif sys.argv[1] == "getID":
             print(cals.getIDCal(service, CAL_NAME))
         elif sys.argv[1] == "newcal":
             cals.create_if_notexisting(service, CAL_NAME)
         elif sys.argv[1] == "clearcal":
-            cals.clearCal(service)
+            cals.clearCal(service, CAL_NAME)
         elif sys.argv[1] == "delcal":
-            cals.delCal(service)
+            cals.delCal(service, CAL_NAME)
         elif sys.argv[1] == "newevent":
             events.add(service, CAL_NAME)
         elif sys.argv[1] == "listcal":

@@ -28,7 +28,7 @@ def getIDCal(service, cal_name):
         page_token = cal_list.get('nextPageToken')
         if not page_token:
             break
-    return resultList
+    return resultList[0]
 
 
 """ Creation functions
@@ -45,7 +45,7 @@ def newCal(service, cal_name):
 
 
 def create_if_notexisting(service, cal_name):
-    if cal_name in list(service):
+    if cal_name in listCal(service):
         print(cal_name + ' exists')
     else:
         print(cal_name + ' does not exist, creating...')

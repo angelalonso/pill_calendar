@@ -1,4 +1,34 @@
-import datetime
+from  datetime import datetime
+
+import csv_funcs as csvs
+import calendar_funcs as cals
+import data_funcs as dat
+
+def loadFromCSV(service, csv_file, CAL_NAME):
+    cal_id = cals.getIDCal(service, CAL_NAME)
+    zone = '+01:00'
+    entryDictArray = csvs.readintoArray(csv_file)
+    for entry in entryDictArray:
+        event = {
+          'summary': entry['Subject'],
+          'description': entry['Description'],
+          'start': {
+            'dateTime': dat.csv2gcal(entry['Start Date'], entry['Start Time'], zone),
+          },
+          'end': {
+            'dateTime': dat.csv2gcal(entry['End Date'], entry['End Time'], zone),
+          },
+          'reminders': {
+            'useDefault': False,
+            'overrides': [
+              {'method': 'popup', 'minutes': 10},
+            ],
+          },
+        } 
+        print('->' + entry['Subject'] + '<->' + entry['Description'])
+        print(dat.csv2gcal(entry['Start Date'], entry['Start Time'], zone))
+        print(dat.csv2gcal(entry['End Date'], entry['End Time'], zone))
+        addEvent(service, event, cal_id)
 
 
 def add(service, cal_name):
@@ -7,6 +37,10 @@ def add(service, cal_name):
         text='Appointment at Somewhere on January 17th 10am-10:25am').execute()
     return created_event
 
+def addEvent(service, event, cal_id):
+    event = service.events().insert(calendarId=cal_id, body=event).execute()
+    print 'Event created: %s' % (event.get('htmlLink'))
+    
 
 def addaux(service, cal_name):
     event = {
@@ -57,7 +91,7 @@ def listEvents(service):
 
 def getIDEvent(service, search_word):
     print('Getting event: ' + search_word)
-    now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' for UTC time
+    now = datetime.utcnow().isoformat() + 'Z'  # 'Z' for UTC time
     print(now)
     eventsResult = service.events().list(
         calendarId='alonsofonseca.angel@gmail.com', q=search_word,
