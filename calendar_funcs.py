@@ -1,7 +1,10 @@
 import datetime
 
+""" Info functions
+"""
 
-def list(service):
+
+def listCal(service):
     resultList = []
     page_token = None
     while True:
@@ -14,22 +17,31 @@ def list(service):
     return resultList
 
 
-def new(service, cal_name):
+def getIDCal(service, cal_name):
+    resultList = []
+    page_token = None
+    while True:
+        cal_list = service.calendarList().list(pageToken=page_token).execute()
+        for calendar_list_entry in cal_list['items']:
+            if calendar_list_entry['summary'] == cal_name:
+                resultList.append(calendar_list_entry['id'])
+        page_token = cal_list.get('nextPageToken')
+        if not page_token:
+            break
+    return resultList
+
+
+""" Creation functions
+"""
+
+
+def newCal(service, cal_name):
     calendar = {
         'summary': cal_name
     }
 
     created_calendar = service.calendars().insert(body=calendar).execute()
-
     print created_calendar['id']
-
-
-def clearCal(service):
-    service.calendars().clear(calendarId='9mabb318guot9t25tmasnjfrtk@group.calendar.google.com').execute()
-
-
-def delCal(service):
-    service.calendars().delete(calendarId='9mabb318guot9t25tmasnjfrtk@group.calendar.google.com').execute()
 
 
 def create_if_notexisting(service, cal_name):
@@ -37,7 +49,25 @@ def create_if_notexisting(service, cal_name):
         print(cal_name + ' exists')
     else:
         print(cal_name + ' does not exist, creating...')
-        new(service, cal_name)
+        newCal(service, cal_name)
+
+
+""" Destruction functions
+"""
+
+
+def clearCal(service, cal_name):
+    calID = getIDCal(service, cal_name)
+    service.calendars().clear(
+      calendarId=calID
+      ).execute()
+
+
+def delCal(service, cal_name):
+    calID = getIDCal(service, cal_name)
+    service.calendars().delete(
+      calendarId=calID
+      ).execute()
 
 
 def listEntries(service):
@@ -70,5 +100,7 @@ def getIDEntry(service, search_word):
         start = event['start'].get('dateTime', event['start'].get('date'))
         print(start, event['summary'])
 
+""" Main control
+"""
 if __name__ == '__main__':
     listEntries()

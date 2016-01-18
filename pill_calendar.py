@@ -26,6 +26,9 @@ SCOPES = 'https://www.googleapis.com/auth/calendar'
 CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Google Calendar API Python Quickstart'
 
+""" TODO: This should go in a config file
+"""
+CAL_NAME = 'Pill_Calendar'
 
 def get_credentials():
     """Gets valid user credentials from storage.
@@ -76,21 +79,19 @@ def main(argv):
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('calendar', 'v3', http=http)
-    cal_name = 'Pill_Calendar'
     try:
         if sys.argv[1] == "readcsv":
             events.listCsv()
+        elif sys.argv[1] == "getID":
+            print(cals.getIDCal(service, CAL_NAME))
         elif sys.argv[1] == "newcal":
-            try:
-                cals.create_if_notexisting(service, sys.argv[2])
-            except IndexError:
-                showhelp(2)
+            cals.create_if_notexisting(service, CAL_NAME)
         elif sys.argv[1] == "clearcal":
             cals.clearCal(service)
         elif sys.argv[1] == "delcal":
             cals.delCal(service)
         elif sys.argv[1] == "newevent":
-            events.add(service, cal_name)
+            events.add(service, CAL_NAME)
         elif sys.argv[1] == "listcal":
             print(cals.list(service))
         elif sys.argv[1] == "getID":
