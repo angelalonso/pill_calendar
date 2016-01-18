@@ -10,3 +10,7 @@ python RUNME.py
 
 (*) if anything goes wrong or you want to get rid of these credentials:
 rm ~/.credentials/*
+
+python pill_calendar.py delcal
+python pill_calendar.py newcal
+python pill_calendar.py loadcsv
