@@ -16,4 +16,6 @@
 
 - Include the credentials in the github project safely.
 
+- SOLVE ERROR:
+googleapiclient.errors.HttpError: <HttpError 403 when requesting https://www.googleapis.com/calendar/v3/calendars/4npsk9fbc40ij557un2esgu37s%40group.calendar.google.com/events?alt=json returned "Rate Limit Exceeded">
 
