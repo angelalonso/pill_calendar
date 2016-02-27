@@ -69,7 +69,7 @@ def preview(service):
 
 
 def showhelp(exitcode):
-    print(sys.argv[0] + ' <inputfile> -o <outputfile>')
+    print(sys.argv[0] + ' [readcsv|loadcsv|getID|newcal|clearcal|delcal|newevent|listcal|getID]')
     sys.exit(exitcode)
 
 
@@ -108,7 +108,8 @@ def main(argv):
         else:
             preview(service)
     except IndexError:
-        events.listEvents(service)
+      showhelp(2)
+     #   events.listEvents(service)
 
 
 if __name__ == '__main__':
