@@ -4,6 +4,36 @@ import csv_funcs as csvs
 import calendar_funcs as cals
 import data_funcs as dat
 
+def listEvents(service):
+    eventsList=[]
+    now = datetime.utcnow().isoformat() + 'Z'  # 'Z' for UTC time
+    for numyear in range(2013, 2017):
+        year=str(numyear)
+        for month in ('01','02','03','04','05','06','07','08','09','10','11','12'): 
+            thisMin=year+'-'+month+'-01T00:00:00Z'
+            if month == '12':
+                nextyear=str(int(year)+1)
+                thisMax=nextyear+'-01-01T00:00:00Z'
+            else:
+                nextmonth=str(int(month)+1).zfill(2)
+                thisMax=year+'-'+nextmonth+'-01T00:00:00Z'
+            eventsResult = service.events().list(
+                calendarId='4npsk9fbc40ij557un2esgu37s@group.calendar.google.com', timeMin=thisMin, timeMax=year+'-'+nextmonth+'-01T00:00:00Z',
+                singleEvents=True, orderBy='startTime').execute()
+            events = eventsResult.get('items', [])
+
+            if not events:
+                pass
+            else:
+                for event in events:
+                    eventsList.append(event)
+    return eventsList
+
+
+def export2CSV(eventArray):
+    for event in eventArray:
+        print event['status']
+
 def loadFromCSV(service, csv_file, CAL_NAME):
     cal_id = cals.getIDCal(service, CAL_NAME)
     zone = '+01:00'
@@ -72,21 +102,6 @@ def addaux(service, cal_name):
 
     event = service.events().insert(calendarId=cal_name, body=event).execute()
     print 'Event created: %s' % (event.get('htmlLink'))
-
-
-def listEvents(service):
-    now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' for UTC time
-    print('Getting the upcoming 10 events')
-    eventsResult = service.events().list(
-        calendarId='alonsofonseca.angel@gmail.com', timeMin=now,
-        maxResults=10, singleEvents=True, orderBy='startTime').execute()
-    events = eventsResult.get('items', [])
-
-    if not events:
-        print('No upcoming events found.')
-    for event in events:
-        start = event['start'].get('dateTime', event['start'].get('date'))
-        print(start, event['summary'])
 
 
 def getIDEvent(service, search_word):

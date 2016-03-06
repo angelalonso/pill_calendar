@@ -1,3 +1,23 @@
+- In order to test everthing once and for all:
+  destroy Calendar
+  create Calendar
+  import in two parts - autorecognize cal name (no hardcoding)
+  list - autorecognize cal name (no hardcoding)
+  export
+
+- Current Opts:
+  readcsv(does not work?) |loadcsv|getID|newcal|clearcal|delcal|newevent|list|listcalendars|getID
+- Desired Opts:
+  status (default)
+  list -> read current entries in gCal
+  export -> list but save into a CSV
+    needs some work 
+  update -> compare existing IDs, add new, change needed
+  export -> list but save into a CSV
+  import_old -> current loadcsv + export to new format (one column per data + ID)
+  import -> current loadcsv with new format, ask if auto update or not at the beginning
+  listcalendars -> just shows all calendars for the user
+
 - Purpose:
   - Add/Change after measuring into CSV
     - Update without touching existing

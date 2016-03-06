@@ -69,7 +69,7 @@ def preview(service):
 
 
 def showhelp(exitcode):
-    print(sys.argv[0] + ' [readcsv|loadcsv|getID|newcal|clearcal|delcal|newevent|listcal|getID]')
+    print(sys.argv[0] + ' [delcal|newcal|loadcsv|readcsv*|loadcsv*|getID*|clearcal*|newevent*|list*|listcalendars*|getID*]')
     sys.exit(exitcode)
 
 
@@ -85,6 +85,11 @@ def main(argv):
     try:
         if sys.argv[1] == "readcsv":
             print(csvs.readintoDict(CSV_FILE))
+        elif sys.argv[1] == "list":
+            eventList=events.listEvents(service)
+            print(eventList[0])
+        elif sys.argv[1] == "export":
+            events.export2CSV(events.listEvents(service))
         elif sys.argv[1] == "loadcsv":
             events.loadFromCSV(service, CSV_FILE, CAL_NAME)
         elif sys.argv[1] == "getID":
@@ -97,8 +102,8 @@ def main(argv):
             cals.delCal(service, CAL_NAME)
         elif sys.argv[1] == "newevent":
             events.add(service, CAL_NAME)
-        elif sys.argv[1] == "listcal":
-            print(cals.list(service))
+        elif sys.argv[1] == "listcalendars":
+            print(cals.listCal(service))
         elif sys.argv[1] == "getID":
             try:
                 search_word = sys.argv[2]
