@@ -109,7 +109,7 @@ def main(argv):
             preview(service)
     except IndexError:
       showhelp(2)
-     #   events.listEvents(service)
+    #  events.listEvents(service)
 
 
 if __name__ == '__main__':
