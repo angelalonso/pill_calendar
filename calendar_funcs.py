@@ -45,7 +45,7 @@ def newCal(service, cal_name):
 
 
 def create_if_notexisting(service, cal_name):
-    if cal_name in listCal(service):
+    if cal_name in listCalendars(service):
         print(cal_name + ' exists')
     else:
         print(cal_name + ' does not exist, creating...')
