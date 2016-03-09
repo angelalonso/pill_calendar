@@ -5,7 +5,12 @@ https://developers.google.com/google-apps/calendar/quickstart/python
 
 Installation:
 
-Not much, just remember to first run the following to get the credentials right(*): 
+Not much, just make sure you have everything python-ready:
+sudo apt-get install python-pip python-dev build-essential
+sudo pip install httplib2
+
+Also remember to first run the following to get the credentials right(*): 
+
 python RUNME.py
 
 (*) if anything goes wrong or you want to get rid of these credentials:
