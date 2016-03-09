@@ -18,7 +18,7 @@ def listEvents(service):
                 nextmonth=str(int(month)+1).zfill(2)
                 thisMax=year+'-'+nextmonth+'-01T00:00:00Z'
             eventsResult = service.events().list(
-                calendarId='4npsk9fbc40ij557un2esgu37s@group.calendar.google.com', timeMin=thisMin, timeMax=year+'-'+nextmonth+'-01T00:00:00Z',
+                calendarId='92sotmte0iel887a1or2325em8@group.calendar.google.com', timeMin=thisMin, timeMax=year+'-'+nextmonth+'-01T00:00:00Z',
                 singleEvents=True, orderBy='startTime').execute()
             events = eventsResult.get('items', [])
 
@@ -63,7 +63,7 @@ def loadFromCSV(service, csv_file, CAL_NAME):
 
 def add(service, cal_name):
     created_event = service.events().quickAdd(
-        calendarId='9mabb318guot9t25tmasnjfrtk@group.calendar.google.com',
+        calendarId='92sotmte0iel887a1or2325em8@group.calendar.google.com',
         text='Appointment at Somewhere on January 17th 10am-10:25am').execute()
     return created_event
 

@@ -87,7 +87,7 @@ def main(argv):
             print(csvs.readintoDict(CSV_FILE))
         elif sys.argv[1] == "list":
             eventList=events.listEvents(service)
-            print(eventList[0])
+            print(eventList)
         elif sys.argv[1] == "export":
             events.export2CSV(events.listEvents(service))
         elif sys.argv[1] == "loadcsv":
