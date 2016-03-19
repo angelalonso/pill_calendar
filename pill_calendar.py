@@ -30,7 +30,7 @@ APPLICATION_NAME = 'Google Calendar API Python Quickstart'
 """ TODO: This should go in a config file
 """
 CAL_NAME = 'Pill_Calendar'
-CSV_FILE = '/home/aaf/Software/Dev/calendar_py/Calendar.csv'
+CSV_FILE = '/home/aaf/Software/Dev/pill_calendar/Calendar.csv'
 
 
 def get_credentials():
@@ -67,6 +67,9 @@ def get_credentials():
 def preview(service):
     pass
 
+
+def loadconfig(file):
+    pass
 
 def showhelp(exitcode):
     print(sys.argv[0] + ' [delcal|newcal|loadcsv|readcsv*|loadcsv*|getID*|clearcal*|newevent*|list*|listcalendars*|getID*]')
