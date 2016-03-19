@@ -1,3 +1,6 @@
+- rename -DONE
+- config file
+
 - In order to test everthing once and for all:
   destroy Calendar
   create Calendar
