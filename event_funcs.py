@@ -36,7 +36,7 @@ def export2CSV(eventArray):
 
 def loadFromCSV(service, csv_file, CAL_NAME):
     cal_id = cals.getIDCal(service, CAL_NAME)
-    zone = '+01:00'
+    zone = '+02:00'
     entryDictArray = csvs.readintoArray(csv_file)
     for entry in entryDictArray:
         event = {
