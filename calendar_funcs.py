@@ -4,7 +4,7 @@ import datetime
 """
 
 
-def listCalendars(service):
+def listCal(service):
     resultList = []
     page_token = None
     while True:

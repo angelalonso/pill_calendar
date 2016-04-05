@@ -61,9 +61,9 @@ def loadFromCSV(service, csv_file, CAL_NAME):
         addEvent(service, event, cal_id)
 
 
-def add(service, cal_name):
+def add(service, CAL_NAME):
     created_event = service.events().quickAdd(
-        calendarId='92sotmte0iel887a1or2325em8@group.calendar.google.com',
+        calendarId= cals.getIDCal(service, CAL_NAME),
         text='Appointment at Somewhere on January 17th 10am-10:25am').execute()
     return created_event
 
