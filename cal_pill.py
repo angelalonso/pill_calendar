@@ -18,10 +18,12 @@ import oauth2client
 # Finally, the other py files in this directory
 import cals as cals
 import events as events
+import csvs as csvs
 
 
 """ CONSTANTS
 """
+ONLINE = 'false'
 CAL_NAME = 'Pill_Calendar'
 
 def showhelp(exitcode):
@@ -66,13 +68,16 @@ def main(argv):
   Creates a Google Calendar API service object
   and proceeds according to parameters
   """
-  credentials = get_credentials()
-  http = credentials.authorize(httplib2.Http())
-  service = discovery.build('calendar', 'v3', http=http)
+  if (ONLINE != 'false'):
+    credentials = get_credentials()
+    http = credentials.authorize(httplib2.Http())
+    service = discovery.build('calendar', 'v3', http=http)
 
   try:
     if sys.argv[1] == "list":
       print(events.listonlineCSV(service,cals.getIDCal(service, CAL_NAME)))
+    elif sys.argv[1] == "test":
+      print(cals.updateOnline("test.csv"))
   except IndexError:
     showhelp(2)
 
