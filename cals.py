@@ -1,5 +1,15 @@
 import csvs
 
+
+def newCal(service, cal_name):
+  calendar = {'summary': cal_name}
+  created_calendar = service.calendars().insert(body=calendar).execute()
+
+def delCal(service, cal_name):
+  calID = getIDCal(service, cal_name)
+  service.calendars().delete(calendarId=calID).execute()
+            
+
 def getIDCal(service, cal_name):
   resultList = []
   page_token = None
@@ -12,6 +22,7 @@ def getIDCal(service, cal_name):
     if not page_token:
       break
   return resultList[0]
+
 
 def conflict(event_offline, event_online):
   errors = []

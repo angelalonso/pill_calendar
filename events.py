@@ -1,5 +1,8 @@
 from datetime import datetime
 import json
+import time
+import data as dat
+import cals
 
 def listonline(service,calID):
     
@@ -41,4 +44,35 @@ def listonlineCSV(service,calID):
     start_datetime = j_event["start"]["dateTime"]
     end_datetime = j_event["end"]["dateTime"]
     print(event_id + "," + subject + "," + description + "," + start_datetime + "," + end_datetime + ",")
+
+## TODO: deprecate the old format, use the new one
+
+def uploadCSV(service, csv_file, cal_name, zone, firstyear, lastyear):
+  cal_id = cals.getIDCal(service, cal_name)
+  entryDictArray = dat.CSV2DictArray(csv_file)
+  for year in range(firstyear, lastyear):
+    time.sleep(5)
+    for entry in entryDictArray:
+      if (str(year) == dat.CSVdatetime2gcal(entry['Start Date'], entry['Start Time'], zone).split('-')[0]):
+        event = {
+              'summary': entry['Subject'],
+              'description': entry['Description'],
+              'start': {
+                       'dateTime': dat.CSVdatetime2gcal(entry['Start Date'], entry['Start Time'], zone),
+                       },
+              'end': {
+                     'dateTime': dat.CSVdatetime2gcal(entry['End Date'], entry['End Time'], zone),
+                     },
+              'reminders': {
+                           'useDefault': False,
+                           'overrides': [
+                                        {'method': 'popup', 'minutes': 10},
+                                        ],
+                           },
+              }
+        addEvent(service, event, cal_id)
+
+def addEvent(service, event, cal_id):
+  event = service.events().insert(calendarId=cal_id, body=event).execute()
+  print ('Event created: ' + str(event))
 
