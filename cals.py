@@ -1,5 +1,6 @@
 import data as dat
 import events
+import cals
 
 def newCal(service, cal_name):
   calendar = {'summary': cal_name}
@@ -70,9 +71,21 @@ def updateOnline(file_in):
   return ""
 
 def updatefromCSV(service, csv_file, cal_name, zone, firstyear, lastyear):
+  cal_id = cals.getIDCal(service, cal_name)
+  # lists
   csv_events = dat.CSV2DictArray(csv_file)
   online_events = events.online2DictArray(service, getIDCal(service, cal_name), firstyear, lastyear)
-  print(csv_events[0])
-  print(csv_events[1])
-  print(online_events[0])
-  print(online_events[1])
+  for csv_event in csv_events:
+    if (csv_event['event_id'] == ""):
+      print("##new one: " + str(csv_event))
+      events.addEvent(service, csv_event, cal_id)
+    else:
+      for onl_event in online_events:
+      # Changed something on an existing ID?
+        if (csv_event['event_id'] == onl_event['event_id']):
+          if (csv_event['start_datetime'] != onl_event['start_datetime']
+           or csv_event['end_datetime'] != onl_event['end_datetime']  
+           or csv_event['description'] != onl_event['description']
+           or csv_event['subject'] != onl_event['subject']):
+            print('##conflict, chose: ' + str(conflict(csv_event,onl_event)))
+      

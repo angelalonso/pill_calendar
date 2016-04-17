@@ -36,17 +36,19 @@ def online2DictArray(service,calID,firstyear,lastyear):
 # TODO: for each one, transform to JSON, read from there, show only needed fields  
 # http://stackoverflow.com/questions/13940272/python-json-loads-returns-items-prefixing-with-u
 # eventslist[0] is a dict
-  #print("event_id,subject,description,start_datetime,end_datetime,")
   for event in eventslist:
+    row = {}
     j_event = json.loads(json.dumps(event, ensure_ascii=False))
     event_id = j_event["id"]
     subject = j_event["summary"]
     description = j_event["description"]
     start_datetime = j_event["start"]["dateTime"]
     end_datetime = j_event["end"]["dateTime"]
-    #print(event_id + "," + subject + "," + description + "," + start_datetime + "," + end_datetime + ",")
-    row = (event_id + "," + subject + "," + description + "," + start_datetime + "," + end_datetime + ",")
-    row = "{'event_id': '" + event_id + "', 'start_datetime': '" + start_datetime + "', 'end_datetime': '" + end_datetime + "', 'description': '" + description + "', 'subject': '" + subject + "'}"
+    row['event_id'] = event_id
+    row['start_datetime'] = start_datetime
+    row['end_datetime'] = end_datetime
+    row['description'] = description
+    row['subject'] = subject
     resultArray.append(row)
 
   return resultArray
@@ -78,6 +80,6 @@ def uploadCSV(service, csv_file, cal_name, zone, firstyear, lastyear):
         addEvent(service, event, cal_id)
 
 def addEvent(service, event, cal_id):
-  event = service.events().insert(calendarId=cal_id, body=event).execute()
-  print ('Event created: ' + str(event))
+  new_event = service.events().insert(calendarId=cal_id, body=event).execute()
+  print ('Event created: ' + str(new_event))
 
