@@ -27,7 +27,7 @@ def getIDCal(service, cal_name):
 
 def conflict(event_offline, event_online):
   errors = []
-  tests = ['event_id','start_datetime','end_datetime','description','subject']
+  tests = ['event_id','start_datetime','end_datetime','description','summary']
   for test in tests:
     if (event_offline[test] != event_online[test]):
       errors.append(test)
@@ -62,7 +62,7 @@ def updateOnline(file_in):
           if (csv_event['start_datetime'] != onl_event['start_datetime']
            or csv_event['end_datetime'] != onl_event['end_datetime']  
            or csv_event['description'] != onl_event['description']
-           or csv_event['subject'] != onl_event['subject']):
+           or csv_event['summary'] != onl_event['summary']):
             print('##conflict, chose: ' + str(conflict(csv_event,onl_event)))
 # same id, same calendar different content
 # different id, same calendar, same content -< clean up automatically(choose one), show message
@@ -78,7 +78,7 @@ def updatefromCSV(service, csv_file, cal_name, zone, firstyear, lastyear):
   for csv_event in csv_events:
     if (csv_event['event_id'] == ""):
       print("##new one: " + str(csv_event))
-      events.addEvent(service, csv_event, cal_id)
+      events.addEvent(service, dat.DictEntry2Gcal(csv_event), cal_id)
     else:
       for onl_event in online_events:
       # Changed something on an existing ID?
@@ -86,6 +86,7 @@ def updatefromCSV(service, csv_file, cal_name, zone, firstyear, lastyear):
           if (csv_event['start_datetime'] != onl_event['start_datetime']
            or csv_event['end_datetime'] != onl_event['end_datetime']  
            or csv_event['description'] != onl_event['description']
-           or csv_event['subject'] != onl_event['subject']):
-            print('##conflict, chose: ' + str(conflict(csv_event,onl_event)))
+           or csv_event['summary'] != onl_event['summary']):
+            chosen_event = conflict(csv_event,onl_event)
+            events.updateEvent(service, cal_id, dat.DictEntry2Gcal(chosen_event), chosen_event['event_id'] )
       

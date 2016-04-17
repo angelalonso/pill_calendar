@@ -40,7 +40,7 @@ def online2DictArray(service,calID,firstyear,lastyear):
     row = {}
     j_event = json.loads(json.dumps(event, ensure_ascii=False))
     event_id = j_event["id"]
-    subject = j_event["summary"]
+    summary = j_event["summary"]
     description = j_event["description"]
     start_datetime = j_event["start"]["dateTime"]
     end_datetime = j_event["end"]["dateTime"]
@@ -48,7 +48,7 @@ def online2DictArray(service,calID,firstyear,lastyear):
     row['start_datetime'] = start_datetime
     row['end_datetime'] = end_datetime
     row['description'] = description
-    row['subject'] = subject
+    row['summary'] = summary
     resultArray.append(row)
 
   return resultArray
@@ -77,9 +77,15 @@ def uploadCSV(service, csv_file, cal_name, zone, firstyear, lastyear):
                                         ],
                            },
               }
-        addEvent(service, event, cal_id)
+        addEvent(service, dat.DictEntry2Gcal(event), cal_id)
 
 def addEvent(service, event, cal_id):
   new_event = service.events().insert(calendarId=cal_id, body=event).execute()
   print ('Event created: ' + str(new_event))
 
+def updateEvent(service, cal_id, event, event_id ):
+  updated_event = service.events().update(calendarId=cal_id, eventId=event_id, body=event).execute()
+  print ('Event updated: ' + str(updated_event))
+
+def deleteEvent(service, event, cal_id, event_id):
+  service.events().delete(calendarId=cal_id, eventId=event_id).execute()

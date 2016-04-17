@@ -19,8 +19,37 @@ def CSV2DictArray(file_in):
   return resultArray
 
 def DictArray2CSV(eventsDictarray):
+  print("event_id,summary,description,start_datetime,end_datetime")
   for row in eventsDictarray:
-    print(str(row))
+    print(row['event_id'] + "," + row['summary'] + "," + row['description'] + "," + row['start_datetime'] + "," + row['end_datetime'])
+
+def DictArray2CSVFile(eventsDictarray, csv_file):
+  f = open(csv_file,"w") 
+  f.write("event_id,summary,description,start_datetime,end_datetime\n")
+  for row in eventsDictarray:
+    f.write(row['event_id'] + "," + row['summary'] + "," + row['description'] + "," + row['start_datetime'] + "," + row['end_datetime'] + "\n")
+  f.close()
+
+def DictEntry2Gcal(event):
+    # TODO: summary? subject?
+  jsonevent = {
+    'summary': event['summary'],
+    'description': event['description'],
+    'start': {
+       'dateTime': event['start_datetime'],
+    },
+    'end': {
+       'dateTime': event['end_datetime'],
+     },
+    'reminders': {
+      'useDefault': False,
+      'overrides': [
+        {'method': 'popup', 'minutes': 10},
+      ],
+    },
+  }
+
+  return jsonevent
 
 if __name__ == '__main__':
     print(csvdatetime2gcal('01/16/18', '09:00:00 PM', '+01:00'))
