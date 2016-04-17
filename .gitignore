@@ -42,3 +42,4 @@ Thumbs.db
 *.swp
 client_secret.json
 Calendar.csv
+old_version/*
