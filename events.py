@@ -30,14 +30,12 @@ def listonline(service,calID,firstyear,lastyear):
                     eventsList.append(event)
     return eventsList
 
-def online2DistArray(service,calID,firstyear,lastyear):
+def online2DictArray(service,calID,firstyear,lastyear):
   resultArray = []
   eventslist = listonline(service,calID,firstyear,lastyear)
 # TODO: for each one, transform to JSON, read from there, show only needed fields  
 # http://stackoverflow.com/questions/13940272/python-json-loads-returns-items-prefixing-with-u
 # eventslist[0] is a dict
-  row = "event_id,subject,description,start_datetime,end_datetime,"
-  resultArray.append(row)
   #print("event_id,subject,description,start_datetime,end_datetime,")
   for event in eventslist:
     j_event = json.loads(json.dumps(event, ensure_ascii=False))
@@ -48,6 +46,7 @@ def online2DistArray(service,calID,firstyear,lastyear):
     end_datetime = j_event["end"]["dateTime"]
     #print(event_id + "," + subject + "," + description + "," + start_datetime + "," + end_datetime + ",")
     row = (event_id + "," + subject + "," + description + "," + start_datetime + "," + end_datetime + ",")
+    row = "{'event_id': '" + event_id + "', 'start_datetime': '" + start_datetime + "', 'end_datetime': '" + end_datetime + "', 'description': '" + description + "', 'subject': '" + subject + "'}"
     resultArray.append(row)
 
   return resultArray

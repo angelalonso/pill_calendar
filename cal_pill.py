@@ -18,7 +18,7 @@ import oauth2client
 # Finally, the other py files in this directory
 import cals
 import events
-import data as dat
+import csvs
 
 
 """ CONSTANTS
@@ -33,7 +33,7 @@ LASTYEAR = 2020
 
 
 def showhelp(exitcode):
-  print(sys.argv[0] + ' [list|upload|clearcal||delcal|newcal|loadcsv|readcsv*|loadcsv*|getID*|clearcal*|newevent*|listcalendars*|getID*]')
+  print(sys.argv[0] + ' [update|list|upload|clearcal||delcal|newcal|loadcsv|readcsv*|loadcsv*|getID*|clearcal*|newevent*|listcalendars*|getID*]')
   sys.exit(exitcode)
 
 
@@ -81,7 +81,7 @@ def main(argv):
 
   try:
     if sys.argv[1] == "list":
-      dat.DictArray2CSV((events.online2DistArray(service, cals.getIDCal(service, CAL_NAME), FIRSTYEAR, LASTYEAR)))
+      dat.DictArray2CSV((events.online2DictArray(service, cals.getIDCal(service, CAL_NAME), FIRSTYEAR, LASTYEAR)))
     if sys.argv[1] == "upload":
       events.uploadCSV(service, CSV_FILE, CAL_NAME, ZONE, FIRSTYEAR, LASTYEAR)
     if sys.argv[1] == "update":

@@ -71,5 +71,8 @@ def updateOnline(file_in):
 
 def updatefromCSV(service, csv_file, cal_name, zone, firstyear, lastyear):
   csv_events = dat.CSV2DictArray(csv_file)
-  online_events = events.online2DistArray(service, getIDCal(service, cal_name), firstyear, lastyear)
-
+  online_events = events.online2DictArray(service, getIDCal(service, cal_name), firstyear, lastyear)
+  print(csv_events[0])
+  print(csv_events[1])
+  print(online_events[0])
+  print(online_events[1])
