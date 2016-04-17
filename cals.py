@@ -1,5 +1,5 @@
-import csvs
-
+import data as dat
+import events
 
 def newCal(service, cal_name):
   calendar = {'summary': cal_name}
@@ -45,7 +45,7 @@ def conflict(event_offline, event_online):
     
 
 def updateOnline(file_in):
-  csv_events = csvs.readintoArray(file_in)
+  csv_events = dat.CSV2DictArray(file_in)
  #TODO: the following can be substituted for the online service list
   online_events = csvs.readintoArray('online.csv')
 #TODO: add id-les, compare, update clear ones, show conflicts, ask for decision, automate decision
@@ -68,3 +68,8 @@ def updateOnline(file_in):
 # cleanup_cal(csv_event)
 # cleanup_cal(onl_event)
   return ""
+
+def updatefromCSV(service, csv_file, cal_name, zone, firstyear, lastyear):
+  csv_events = dat.CSV2DictArray(csv_file)
+  online_events = events.online2DistArray(service, getIDCal(service, cal_name), firstyear, lastyear)
+

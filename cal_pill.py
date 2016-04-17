@@ -18,7 +18,7 @@ import oauth2client
 # Finally, the other py files in this directory
 import cals
 import events
-import csvs
+import data as dat
 
 
 """ CONSTANTS
@@ -28,8 +28,8 @@ ONLINE = 'true'
 CAL_NAME = 'Pill_Calendar'
 CSV_FILE = 'Calendar.csv'
 ZONE = '+02:00'
-FIRSTYEAR = 2015
-LASTYEAR = 2016
+FIRSTYEAR = 2012
+LASTYEAR = 2020
 
 
 def showhelp(exitcode):
@@ -81,9 +81,11 @@ def main(argv):
 
   try:
     if sys.argv[1] == "list":
-      print(events.listonlineCSV(service,cals.getIDCal(service, CAL_NAME)))
+      dat.DictArray2CSV((events.online2DistArray(service, cals.getIDCal(service, CAL_NAME), FIRSTYEAR, LASTYEAR)))
     if sys.argv[1] == "upload":
       events.uploadCSV(service, CSV_FILE, CAL_NAME, ZONE, FIRSTYEAR, LASTYEAR)
+    if sys.argv[1] == "update":
+      cals.updatefromCSV(service, CSV_FILE, CAL_NAME, ZONE, FIRSTYEAR, LASTYEAR)
     if sys.argv[1] == "clearcal":
       #TODO: Ask the user before deleting!!
       cals.delCal(service, CAL_NAME)
