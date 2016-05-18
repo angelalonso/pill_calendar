@@ -39,6 +39,8 @@ def online2DictArray(service,calID,firstyear,lastyear):
   for event in eventslist:
     row = {}
     j_event = json.loads(json.dumps(event, ensure_ascii=False))
+    #Good test for "description key error"
+    #print(j_event)
     event_id = j_event["id"]
     summary = j_event["summary"]
     description = j_event["description"]
