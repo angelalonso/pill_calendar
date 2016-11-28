@@ -18,13 +18,12 @@ import oauth2client
 # Finally, the other py files in this directory
 import cals
 import events
-import csvs
 import data as dat
 
 
 """ CONSTANTS
 """
-#ONLINE = 'false'
+# ONLINE = 'false'
 ONLINE = 'true'
 CAL_NAME = 'Pill_Calendar'
 CSV_FILE = 'Calendar.csv'
@@ -53,7 +52,7 @@ def get_credentials():
   if not os.path.exists(credential_dir):
     os.makedirs(credential_dir)
   credential_path = os.path.join(credential_dir,
-    'pill-calendar-python.json')
+                                 'pill-calendar-python.json')
 
   store = oauth2client.file.Storage(credential_path)
   credentials = store.get()
