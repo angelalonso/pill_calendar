@@ -8,9 +8,10 @@ Installation:
 Not much, just make sure you have everything python-ready:
 sudo apt-get install python-pip python-dev build-essential
 sudo pip install httplib2
+sudo pip install --upgrade google-api-python-client
 
 get the client_secret.json too, as well as the .credentials files.
-Also remember to first run the following to get the credentials right(*): 
+Also remember to first run the following to get the credentials right(*):
 
 python RUNME.py
 
