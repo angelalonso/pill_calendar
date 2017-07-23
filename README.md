@@ -22,12 +22,9 @@ Create a csv file on the installation directory, named Calendar.csv, with the fo
 
 
 # Usage
-python cal_pill.py update
+python cal_pill.py
 ... to read entries from your CSV, upload to Google Calendar, and then download the whole list back (including the assigned event ids)
 
 # Known issues
-Error (...) summary field (...) invalid
-<br>
-This is probably because your CSV file
-Then do the regular run with:
+
 
