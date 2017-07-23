@@ -14,7 +14,9 @@ sudo pip install httplib2
 <br>
 sudo pip install --upgrade google-api-python-client
 <br><br>
-Get your Google API credentials and store them under ~/.credentials/pill-calendar-python.json
+Get your Google API credentials and store them under client_secret.json
+<br>
+The first time you run it, it will open a webbrowser to authenticate through your user and store the credentials on .credentials/calendar-python-quickstart.json (Yeah I copied the doc's example)
 <br>
 Create a csv file on the installation directory, named Calendar.csv, with the following fields as first line:<br>
 "event_id","summary","description","start_datetime","end_datetime"<br>
@@ -22,7 +24,7 @@ Create a csv file on the installation directory, named Calendar.csv, with the fo
 
 
 # Usage
-python cal_pill.py
+python pill_cal.py update
 ... to read entries from your CSV, upload to Google Calendar, and then download the whole list back (including the assigned event ids)
 
 # Known issues
