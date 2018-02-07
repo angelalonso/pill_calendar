@@ -36,4 +36,8 @@ python pill_cal.py update
 
 # Known issues
 
+- (...)oauth2client.clientsecrets.InvalidClientSecretsError: ('Error opening file', 'client_secret.json', 'No such file or directory', 2)
+
+Make sure you have the file ~/.credentials/pill_cal.json and it's correct
+
 
