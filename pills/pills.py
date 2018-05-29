@@ -9,6 +9,8 @@ Load csv
 
 import csv
 from collections import abc
+from collections import deque
+from datetime import datetime
 from sequencer import generate_sequence
 
 class Dates:
@@ -83,8 +85,39 @@ class DateEntry:
         else:
             return obj
 
+def get_datasamples():
+    dates_back = 10
+    last_pills = deque()
+    last_measure = 0
+    last_measure_day = latest_datetime = datetime.strptime('0001-01-01T00:00:01Z', '%Y-%m-%dT%H:%M:%SZ')
+
+    for blank_ix in range(dates_back):
+        last_pills.appendleft(0)
+
+    for ix in range(len(dates.list)):
+        stripped_datetime = datetime.strptime(dates.list[ix].start_datetime, '%Y-%m-%dT%H:%M:%SZ')
+        if stripped_datetime > latest_datetime:
+            if stripped_datetime <= datetime.now():
+                if "Blood Level" in dates.list[ix].summary:
+                    last_measure_day = stripped_datetime
+                    days_since_last_measure_day = 0
+                    last_measure = float(str(dates.list[ix].summary).split()[2])
+                elif "Sintrom Amount" in dates.list[ix].summary:
+                    last_pills.appendleft(int(str(dates.list[ix].summary).split()[2]))
+                    if len(last_pills) > dates_back:
+                        last_pills.pop()
+                    days_since_last_measure_day = stripped_datetime - last_measure_day
+                latest_datetime = stripped_datetime
+                print(str(last_pills) + " - " + str(last_measure) + " - " + str(days_since_last_measure_day))
+        else:
+            print("ERROR! your dataset is not ordered chronologically")
+            print("  Please, sort your CSV file by start_datetime before using this script")
+            break
+    #TODO: format and return values in an array
+
+
 if __name__ == '__main__':
-    dates = Dates('Calendar.csv')
+    dates = Dates('../Calendar.csv')
     #four = dates.select(7, 4, 'end')
 #    generate_sequence(1.7142857142857142, 56)
     last_four_days = dates.select(4, 4, 'end')
@@ -97,3 +130,5 @@ if __name__ == '__main__':
         prev_start_datetimes.append(day.start_datetime)
 
     dates.add(generate_sequence(1.7142857142857142, 7, prev_sequence), prev_start_datetimes)
+    get_datasamples()
+
