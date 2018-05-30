@@ -12,6 +12,7 @@ from collections import abc
 from collections import deque
 from datetime import datetime
 from sequencer import generate_sequence
+import rnn
 
 class Dates:
     list = []
@@ -94,6 +95,7 @@ def get_datasamples():
     for blank_ix in range(dates_back):
         last_pills.appendleft(0)
 
+    test_list = []
     for ix in range(len(dates.list)):
         stripped_datetime = datetime.strptime(dates.list[ix].start_datetime, '%Y-%m-%dT%H:%M:%SZ')
         if stripped_datetime > latest_datetime:
@@ -108,27 +110,36 @@ def get_datasamples():
                         last_pills.pop()
                     days_since_last_measure_day = stripped_datetime - last_measure_day
                 latest_datetime = stripped_datetime
-                print(str(last_pills) + " - " + str(last_measure) + " - " + str(days_since_last_measure_day))
+                #print(str(last_pills) + " - " + str(last_measure) + " - " + str(days_since_last_measure_day))
+                test_case = []
+                for last_pills_ix in range(len(last_pills)):
+                    test_case.append(last_pills[last_pills_ix])
+                test_case.append(last_measure)
+                test_case.append(days_since_last_measure_day)
+                test_list.append(test_case)
         else:
             print("ERROR! your dataset is not ordered chronologically")
             print("  Please, sort your CSV file by start_datetime before using this script")
             break
-    #TODO: format and return values in an array
+    return test_list
+
+
 
 
 if __name__ == '__main__':
     dates = Dates('../Calendar.csv')
     #four = dates.select(7, 4, 'end')
 #    generate_sequence(1.7142857142857142, 56)
-    last_four_days = dates.select(4, 4, 'end')
-    four_days_ago = dates.select(4, 1, 'end')
-    prev_sequence = []
-    prev_start_datetimes = []
-    for day in last_four_days:
-        sintrom = int(str(day.summary).split()[2])
-        prev_sequence.append(sintrom)
-        prev_start_datetimes.append(day.start_datetime)
+##     last_four_days = dates.select(4, 4, 'end')
+##     four_days_ago = dates.select(4, 1, 'end')
+##     prev_sequence = []
+##     prev_start_datetimes = []
+##     for day in last_four_days:
+##         sintrom = int(str(day.summary).split()[2])
+##         prev_sequence.append(sintrom)
+##         prev_start_datetimes.append(day.start_datetime)
 
-    dates.add(generate_sequence(1.7142857142857142, 7, prev_sequence), prev_start_datetimes)
-    get_datasamples()
+##    dates.add(generate_sequence(1.7142857142857142, 7, prev_sequence), prev_start_datetimes)
+
+    rnn.model(get_datasamples())
 
