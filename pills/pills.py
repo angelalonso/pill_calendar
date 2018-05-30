@@ -108,7 +108,7 @@ def get_datasamples():
                     last_pills.appendleft(int(str(dates.list[ix].summary).split()[2]))
                     if len(last_pills) > dates_back:
                         last_pills.pop()
-                    days_since_last_measure_day = stripped_datetime - last_measure_day
+                    days_since_last_measure_day = int((stripped_datetime - last_measure_day).days)
                 latest_datetime = stripped_datetime
                 #print(str(last_pills) + " - " + str(last_measure) + " - " + str(days_since_last_measure_day))
                 test_case = []
