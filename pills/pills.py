@@ -89,11 +89,14 @@ class DateEntry:
 def get_datasamples():
     dates_back = 10
     last_pills = deque()
-    last_measure = 0
+    # define a starting measure, say 2.5  
+    last_measure = 2.5
     last_measure_day = latest_datetime = datetime.strptime('0001-01-01T00:00:01Z', '%Y-%m-%dT%H:%M:%SZ')
 
+    # define a standard starting series
+    standard_serie = [1, 2, 2, 1, 2, 2, 2]
     for blank_ix in range(dates_back):
-        last_pills.appendleft(0)
+        last_pills.append(standard_serie[blank_ix % len(standard_serie)])
 
     test_list = []
     for ix in range(len(dates.list)):
@@ -109,6 +112,10 @@ def get_datasamples():
                     if len(last_pills) > dates_back:
                         last_pills.pop()
                     days_since_last_measure_day = int((stripped_datetime - last_measure_day).days)
+                    # Normalize the first data, assuming you start already with an initial measure (the value was set above)
+                    if days_since_last_measure_day > 10000:
+                        last_measure_day = stripped_datetime
+                        days_since_last_measure_day = 0
                 latest_datetime = stripped_datetime
                 #print(str(last_pills) + " - " + str(last_measure) + " - " + str(days_since_last_measure_day))
                 test_case = []
