@@ -42,6 +42,7 @@ SCOPES = 'https://www.googleapis.com/auth/calendar'
 CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Pill Calendar'
 ## End of Scopes
+
 # ONLINE = 'false'
 ONLINE = 'true'
 CAL_NAME = 'Pill_Calendar'

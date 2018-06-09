@@ -2,8 +2,9 @@
 """
 Creates a list of entries to be copied to the CSV
 
-USAGE:
-    python3 newentries.py <start_date> <average_amount_you_need> <number_of_days_to_generate>
+TODO: 
+    - cleaner datetime code
+    - accept a series as parameter (1,2,2,1,2,2,2)
 """
 
 import sys
