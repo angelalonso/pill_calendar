@@ -25,6 +25,15 @@ def generate_sequence(amount, days):
     return sequence
 
 
+def repeat_sequence(template_sequence, days):
+    sequence = []
+    for day in range(days):
+        sequence.append(template_sequence[day % len(template_sequence)])
+    print(sequence)
+    return(sequence)
+
+
+
 def csv_print(values, start_date):
     if start_date == "today":
         real_date = datetime.date.today()
@@ -48,21 +57,31 @@ def csv_print(values, start_date):
 
 def show_error():
     print("Syntax:")
-    print("  python3 newentries.py <start_date> <average_amount_you_need> <number_of_days_to_generate>")
+    print("  python3 newentries.py <start_date> <number_of_days_to_generate> [avg_amount_you_need|series_to_repeat]")
     print("")
-    print("  E.g.: python3 newentries.py today 1.7142857142857142 28")
-    print("  E.g.: python3 newentries.py tomorrow 1.75 56")
-    print("  E.g.: python3 newentries.py 20180614 1.75 56")
+    print("          , where series_to_reate has the following format: 1,2,2,1,2,2,2")
+    print("")
+    print("  E.g.: python3 newentries.py today 28 1.7142857142857142 28")
+    print("  E.g.: python3 newentries.py tomorrow 56 1.75 56")
+    print("  E.g.: python3 newentries.py 20180614 30 1,2,2,2,1,2,2,2")
 
 
 if __name__ == '__main__':
     try:
         start_date = sys.argv[1]
-        average_value = float(sys.argv[2])
-        days = int(sys.argv[3])
     except IndexError:
         show_error()
         sys.exit(2)
 
-    csv_print(generate_sequence(average_value, days), start_date)
+    days = int(sys.argv[2])
+    try: 
+        average_value = float(sys.argv[3])
+    except ValueError:
+        value_series = sys.argv[3].split(',')
+
+    try:
+        csv_print(generate_sequence(average_value, days), start_date)
+    except NameError:
+        csv_print(repeat_sequence(value_series, days), start_date)
+    
 
