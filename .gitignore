@@ -37,6 +37,10 @@
 ehthumbs.db
 Thumbs.db
 
+# ReactNative #
+###############
+node_modules
+
 # My Own #
 ##########
 *.swp
