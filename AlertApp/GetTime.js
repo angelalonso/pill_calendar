@@ -18,6 +18,7 @@ export default class GetTime extends Component {
     this.state = {
         myKey: null
     }
+    this.onChange = this.changeTime.bind(this);
   }
   async getKey() {
     try {
@@ -51,7 +52,10 @@ export default class GetTime extends Component {
     selectedMinutes: 0,
   }
 
-  changeTime() {
+  changeTime(hours, minutes) {
+    this.saveKey(minutes.toString());
+    this.setState({ selectedHours: hours, selectedMinutes: minutes });
+    console.log(this.state);
 
   }
  
@@ -63,10 +67,8 @@ export default class GetTime extends Component {
         <TimePicker
           selectedHours={selectedHours}
           selectedMinutes={selectedMinutes}
-         // onChange={(hours, minutes) => this.setState({ selectedHours: hours, selectedMinutes: minutes })}
           onChange={
-            (hours, minutes) => this.saveKey(minutes.toString());
-            (hours, minutes) => this.setState({ selectedHours: hours, selectedMinutes: minutes })
+            (hours, minutes) => this.changeTime(hours, minutes)
           }
         />
       </View>
