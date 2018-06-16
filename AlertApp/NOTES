@@ -1,0 +1,11 @@
+# NOTES until I automate this:
+
+yarn add react-navigation
+npm i react-native-simple-time-picker --save
+
+
+REMOVED
+npm i react-native-timepicker --save <- did not work well
+npm i react-time-picker --save
+Unable to resolve react-clock/dist/Clock.css" from ".//node_modules/react-time-picker/dist/entry.js"
+
