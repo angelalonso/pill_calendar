@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Dimensions, Text, TextInput, TouchableOpacity} from 'react-native';
+import {
+  Dimensions, 
+  Picker,
+  StyleSheet, 
+  Text, 
+  TextInput, 
+  TouchableOpacity,
+  View, 
+} from 'react-native';
 
 import { connect } from 'react-redux';
 import { addAlert, updateAlert } from '../actions'
@@ -7,6 +15,8 @@ import { Actions } from 'react-native-router-flux';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 const {width: windowWidth, height: windowHeight} = Dimensions.get('window');
+const MAX_HOURS = 23;
+const MAX_MINUTES = 59;
 
 class NewAlert extends Component {
 
@@ -50,34 +60,44 @@ class NewAlert extends Component {
         Actions.pop();
     }
 
+    // copied from react-native-simple-time-picker 
+    getHoursItems = () => { 
+      const items = []; 
+      for (let i = 0; i <= MAX_HOURS; i++) { 
+        items.push( 
+          <Picker.Item key={i} value={i} label={`${i.toString()}`} />, 
+        ); 
+      } 
+      return items; 
+    } 
+    getMinutesItems = () => {
+      const items = [];
+      for (let i = 0; i <= MAX_MINUTES; i++) {
+        items.push(
+          <Picker.Item key={i} value={i} label={`${i.toString()}`} />,
+        );
+      }
+      return items;
+    }
+
     render() {
         return (
             <View style={{flex: 1, backgroundColor: '#fff'}}>
                 <View style={{flex:1, paddingLeft:10, paddingRight:10}}>
-                    <TextInput
-                        onChangeText={(text) => this.setState({hour: text})}
-                        placeholder={"Hour"}
-                        autoFocus={true}
-                        style={[styles.title]}
-                        value={this.state.hour}
-                    />
-                    <TextInput
-                        onChangeText={(text) => this.setState({minutes: text})}
-                        placeholder={"Minutes"}
-                        autoFocus={true}
-                        style={[styles.title]}
-                        value={this.state.minutes}
-                    />
-                    <TextInput
-                        onChangeText={(text) => this.setState({alertstatus: text})}
-                        placeholder={"AlertStatus"}
-                        autoFocus={true}
-                        style={[styles.title]}
-                        value={this.state.alertstatus}
-                    />
+                    <Picker selectedValue = {this.state.hour} onValueChange = {(text) => this.setState({hour: text})}>
+                      {this.getHoursItems()}  
+                    </Picker>
+                    <Picker selectedValue = {this.state.minutes} onValueChange = {(text) => this.setState({minutes: text})}>
+                      {this.getMinutesItems()}  
+                    </Picker>
+                    <Picker selectedValue = {this.state.alertstatus} onValueChange = {(text) => this.setState({alertstatus: text})}>
+                      <Picker.Item label = "ON" value = "ON" />
+                      <Picker.Item label = "OFF" value = "OFF" />
+                    </Picker>
                 </View>
                 <TouchableOpacity style={[styles.saveBtn]}
-                                  disabled={(this.state.hour.length > 0 && this.state.minutes.length > 0) ? false : true}
+                                  // DOESNT WORK, WHY?
+                                  //disabled={(this.state.hour.length > 0 && this.state.minutes.length > 0) ? false : true}
                                   onPress={this.addAlert}>
                     <Text style={[styles.buttonText,
                         {
