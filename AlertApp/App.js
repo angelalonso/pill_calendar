@@ -1,17 +1,15 @@
-'use strict';                                                                                                                                                                                         
-
-import {
-  StyleSheet,
-} from 'react-native';
-import {
-  StackNavigator,
-} from 'react-navigation';
-import NoConfigMsg from './NoConfigMsg';
-import GetTime from './GetTime';
+import React, { Component } from 'react';                                                                                                                                                             
+import { Provider } from 'react-redux';
  
-const App = StackNavigator({
-  Home: { screen: NoConfigMsg },
-  GetTime: { screen: GetTime },
-});
-export default App;
+import store from './app/store'; //Import the store
+import Main from './app/index' //Import the app/index.js file
  
+export default class App extends Component {
+    render() {
+        return (
+            <Provider store={store}>
+                <Main />
+            </Provider>
+        );
+    }
+}

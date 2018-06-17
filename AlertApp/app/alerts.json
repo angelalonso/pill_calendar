@@ -1,0 +1,10 @@
+{
+  "alerts": [
+    {
+      "id":1,
+      "hour": "21",
+      "minutes": "00",
+      "alertstatus": "off"
+    }
+  ]
+}
