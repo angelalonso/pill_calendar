@@ -3,6 +3,7 @@ import { View, AsyncStorage } from 'react-native';
  
 import { Router, Scene } from 'react-native-router-flux';
  
+import Start from './components/start'
 import Home from './components/home'
 import NewAlert from './components/new_alert'
  
@@ -30,7 +31,8 @@ class Main extends Component {
         return (
             <Router>
                 <Scene key="root">
-                    <Scene key="home" component={Home} title="Home" initial/>
+                    <Scene key="start" component={Start} title="Start" initial/>
+                    <Scene key="home" component={Home} title="Home"/>
                     <Scene key="new_alert" component={NewAlert} title="New Alert"/>
                 </Scene>
             </Router>
