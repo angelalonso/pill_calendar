@@ -5,7 +5,6 @@ export const DELETE_ALERT = 'DELETE_ALERT';
 
 import {AsyncStorage} from "react-native";
 
-
 // Add Quote - CREATE (C)
 export function addAlert(alertitem){
     return (dispatch) => {

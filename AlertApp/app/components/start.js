@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {  
+  Alert,
+  Button,
   StyleSheet,
   Text,   
   View,   
@@ -28,12 +30,21 @@ class Start extends Component {
                 <Text style={[styles.text]}>
                   Save
                 </Text>
+                <Button
+                  onPress={() => {
+                    Alert.alert('You tapped the button!');
+                  }}
+                  title="Edit"
+                  style={[styles.button]}>
+                </Button>
               </View>
           );
       }
   }
 };
- 
+
+
+
 //Connect everything
 export default connect()(Start);
  
@@ -43,6 +54,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#F5F5F5'
     },
     text:{
+        fontWeight: "500",
+        backgroundColor: '#F5F5F5'
+    },
+    button:{
         fontWeight: "500",
         backgroundColor: '#F5F5F5'
     },
