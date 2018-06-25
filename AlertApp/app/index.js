@@ -1,17 +1,14 @@
-import React, {Component} from 'react';                                                                                                                                                               
-import { View, AsyncStorage } from 'react-native';
- 
+import React, { Component } from 'react';
+import { AsyncStorage } from 'react-native';
+import { connect } from 'react-redux';
 import { Router, Scene } from 'react-native-router-flux';
  
-import Start from './components/start'
+import { getAlarms } from './actions'
+import Data from './alarms.json'
+
 import Home from './components/home'
-import NewAlert from './components/new_alert'
- 
-import Data from './alerts.json'
- 
-import {connect} from 'react-redux';
-import { getAlerts } from './actions'
- 
+import Config from './components/config'
+
 class Main extends Component {
  
     componentDidMount() {
@@ -21,8 +18,8 @@ class Main extends Component {
             //if it doesn't exist, extract from json file
             //save the initial data in Async
             if (data === null){
-                AsyncStorage.setItem('data', JSON.stringify(Data.alerts));
-                _this.props.getAlerts();
+                AsyncStorage.setItem('data', JSON.stringify(Data.alarms));
+                _this.props.getAlarms();
             }
         });
     }
@@ -31,9 +28,8 @@ class Main extends Component {
         return (
             <Router>
                 <Scene key="root">
-                    <Scene key="start" component={Start} title="Start" initial/>
-                    <Scene key="home" component={Home} title="Home"/>
-                    <Scene key="new_alert" component={NewAlert} title="New Alert"/>
+                    <Scene key="home" component={Home} title="Home" initial/>
+                    <Scene key="config" component={Config} title="Config" />
                 </Scene>
             </Router>
         );
@@ -41,4 +37,4 @@ class Main extends Component {
 }
  
 //Connect everything
-export default connect(null, { getAlerts })(Main);
+export default connect(null, { getAlarms })(Main);

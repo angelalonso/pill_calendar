@@ -1,11 +1,11 @@
 'use strict'
 import React, { Component } from 'react';                                                                                                                                                             
 import {
-    ActivityIndicator, 
-    Button,
+    View,
     StyleSheet,
     Text,
-    View,
+    ActivityIndicator, 
+    TouchableHighlight, ActionSheetIOS, FlatList, 
 } from 'react-native';
  
 import { bindActionCreators } from 'redux';
@@ -20,7 +20,8 @@ class Home extends Component {
 
     this.state = {};
 
-    this.getDataState = this.getDataState.bind(this);
+    this.getMyText = this.getMyText.bind(this);
+    this.getStateText = this.getStateText.bind(this);
 
   }
 
@@ -28,10 +29,13 @@ class Home extends Component {
     this.props.getAlarms(); //call our action
   }        
 
-  getDataState() {
-    //TODO: change to alarmstatus, and OFF, everywhere
-      let value = this.props.alarms[0].hour + ":" + this.props.alarms[0].minutes + " - " + this.props.alarms[0].id;
-      return value;
+  getMyText() {
+    return "Text from getMyText";
+  }
+    
+  getStateText() {
+    let value = this.props.alarms[0].hour + ":" + this.props.alarms[0].minutes + " - " + this.props.alarms[0].id;
+    return value;
   }
     
     render() {
@@ -46,15 +50,16 @@ class Home extends Component {
                 <View style={styles.container}>
                     <Text style={styles.text}
                     >
-                    {this.getDataState()}
+                    Manual text
                     </Text>  
-                    <Button
-                      onPress={() => Actions.config()}
-                      style={[styles.button]}
-                      title="Config"
-                      >
-                    </Button>
-
+                    <Text style={styles.text}
+                    >
+                    {this.getMyText()}
+                    </Text>  
+                    <Text style={styles.text}
+                    >
+                    {this.getStateText()}
+                    </Text>  
                 </View>
             );
         }
@@ -84,18 +89,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(Home);
 const styles = StyleSheet.create({
  
   container:{
-    flex:1,
-    backgroundColor: '#F5F5F5'
+      flex:1,
+      backgroundColor: '#F5F5F5'
   },
 
   text:{
-    fontSize: 14,
-    fontWeight: "600",
-    marginTop: 8 * 2
+      fontSize: 14,
+      fontWeight: "600",
+      marginTop: 8 * 2
   },
-  button:{
-    fontWeight: "500",
-    backgroundColor: '#F5F5F5'
-  },
-
 });
