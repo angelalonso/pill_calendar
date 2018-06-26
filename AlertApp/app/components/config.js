@@ -28,7 +28,7 @@ class Config extends Component {
     this.state = {                     
       hour: props.alarms[0].hour,
       minutes: props.alarms[0].minutes,
-      alarmstatus: props.alarms[0].alarmstatus
+      alertstatus: props.alarms[0].alertstatus
     };     
     //console.log("hello" + this.state.hour);
 
@@ -71,6 +71,7 @@ class Config extends Component {
     console.log(alarm['hour']);
     //Actions.home();
     Actions.reset('home');
+    //Actions.popTo('home');
   }
     
     render() {
@@ -90,9 +91,9 @@ class Config extends Component {
                     <Picker selectedValue = {this.state.minutes} onValueChange = {(text) => this.setState({minutes: text})}>
                       {this.getMinutesItems()}  
                     </Picker>
-                    <Picker selectedValue = {this.state.alarmstatus} onValueChange = {(text) => this.setState({alarmstatus: text})}>
-                      <Picker.Item label = "ON" value = "ON" />
-                      <Picker.Item label = "OFF" value = "OFF" />
+                    <Picker selectedValue = {this.state.alertstatus} onValueChange = {(text) => this.setState({alertstatus: text})}>
+                      <Picker.Item label = "ON" value = "on" />
+                      <Picker.Item label = "OFF" value = "off" />
                     </Picker>
                 </View>
                   <Button

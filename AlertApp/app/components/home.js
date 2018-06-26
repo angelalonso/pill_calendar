@@ -20,18 +20,32 @@ class Home extends Component {
 
     this.state = {};
 
+    console.log("constructor");
     this.getDataState = this.getDataState.bind(this);
+    //INFO: this.props is here not yet loaded
 
   }
 
+  componentWillReceiveProps(nextProps){
+    console.log("nextprops")
+    console.log(nextProps.alarms[0].hour)
+    if(nextProps.alarms[0] !== this.props.alarms[0]){
+      this.setState({
+        hour: nextProps.alarms[0].hour,
+        minutes: nextProps.alarms[0].minutes,
+        alertstatus: nextProps.alarms[0].alertstatus
+      });
+    }
+  }
   componentDidMount() {
     this.props.getAlarms(); //call our action
   }        
 
   getDataState() {
     //TODO: change to alarmstatus, and OFF, everywhere
-      let value = this.props.alarms[0].hour + ":" + this.props.alarms[0].minutes + " - " + this.props.alarms[0].id;
-      return value;
+    console.log("home>getDataState " + this.props.alarms[0].hour + " - " + this.props.alarms[0].alertstatus);
+    let value = this.props.alarms[0].hour + ":" + this.props.alarms[0].minutes + " - " + this.props.alarms[0].alertstatus;
+    return value;
   }
     
     render() {
