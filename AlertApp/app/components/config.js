@@ -69,6 +69,8 @@ class Config extends Component {
     alarm['alertstatus'] = this.state.alertstatus;
     this.props.updateAlarm(alarm); 
     console.log(alarm['hour']);
+    //Actions.home();
+    Actions.reset('home');
   }
     
     render() {
