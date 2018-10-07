@@ -11,7 +11,8 @@ sudo apt-get install python-pip python-dev build-essential
 <br>
 sudo pip install httplib2
 <br>
-sudo pip install --upgrade google-api-python-client
+pip install --upgrade google-api-python-client --user
+pip install --upgrade oauth2client --user
 <br><br>
 # Credentials
 You'll need to get your creds under ~/.credentials/pill_cal.json
