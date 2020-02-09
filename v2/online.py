@@ -1,15 +1,52 @@
 import json
 import time
-import data as dat
 import pill_calendar as pc
 
+def getCredentials():
+    '''Gets valid user credentials from storage.
+
+    If nothing has been stored, or if the stored credentials are invalid,
+    the OAuth2 flow is completed to obtain the new credentials.
+
+    Returns:
+        Credentials, the obtained credential.
+    '''
+    home_dir = os.path.expanduser('~')
+    credential_dir = os.path.join(home_dir, '.credentials')
+    if not os.path.exists(credential_dir):
+        os.makedirs(credential_dir)
+    credential_path = os.path.join(credential_dir, 'pill_cal.json')
+
+    store = Storage(credential_path)
+    credentials = store.get()
+    if not credentials or credentials.invalid:
+        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
+        flow.user_agent = APPLICATION_NAME
+        if flags:
+            credentials = tools.run_flow(flow, store, flags)
+        else: # Needed only for compatibility with Python 2.6
+            credentials = tools.run(flow, store)
+        print('Storing credentials to ' + credential_path)
+    return credentials
+
+
+def getConnection():
+    ''' Gets a Connection/Service
+          from the credentials installed
+    '''
+    credentials = getCredentials()
+    http_handler = credentials.authorize(httplib2.Http())
+    service = discovery.build('calendar', 'v3', http=http_handler)
+    return service
+
+
 def newCal(service, cal_name):
-  calendar = {'summary': cal_name}
-  created_calendar = service.calendars().insert(body=calendar).execute()
+    calendar = {'summary': cal_name}
+    created_calendar = service.calendars().insert(body=calendar).execute()
 
 def delCal(service, cal_name):
-  calID = getIDCal(service, cal_name)
-  service.calendars().delete(calendarId=calID).execute()
+    calID = getIDCal(service, cal_name)
+    service.calendars().delete(calendarId=calID).execute()
             
 
 def getIDCal(service, cal_name):
@@ -47,7 +84,7 @@ def conflict(event_offline, event_online):
     
 
 def updateOnline(file_in):
-  csv_events = dat.CSV2DictArray(file_in)
+  csv_events = pc.CSV2DictArray(file_in)
  #TODO: the following can be substituted for the online service list
   #online_events = csvs.readintoArray('online.csv')
   online_events = pc.loadCalendarFile('online.csv')
@@ -75,12 +112,12 @@ def updateOnline(file_in):
 def updatefromCSV(service, csv_file, cal_name, zone, firstyear, lastyear):
   cal_id = getIDCal(service, cal_name)
   # lists
-  csv_events = dat.CSV2DictArray(csv_file)
+  csv_events = pc.CSV2DictArray(csv_file)
   online_events = online2DictArray(service, getIDCal(service, cal_name), firstyear, lastyear)
   for csv_event in csv_events:
     if (csv_event['event_id'] == ""):
       print("##new one: " + str(csv_event))
-      addEvent(service, dat.DictEntry2Gcal(csv_event), cal_id)
+      addEvent(service, pc.DictEntry2Gcal(csv_event), cal_id)
     else:
       for onl_event in online_events:
       # Changed something on an existing ID?
@@ -90,7 +127,7 @@ def updatefromCSV(service, csv_file, cal_name, zone, firstyear, lastyear):
            or csv_event['description'] != onl_event['description']
            or csv_event['summary'] != onl_event['summary']):
             chosen_event = conflict(csv_event,onl_event)
-            updateEvent(service, cal_id, dat.DictEntry2Gcal(chosen_event), chosen_event['event_id'] )
+            updateEvent(service, cal_id, pc.DictEntry2Gcal(chosen_event), chosen_event['event_id'] )
      
 ''' OLD EVENTS '''
 
@@ -149,19 +186,19 @@ def online2DictArray(service,calID,firstyear,lastyear):
 
 def uploadCSV(service, csv_file, cal_name, zone, firstyear, lastyear):
   cal_id = online.getIDCal(service, cal_name)
-  entryDictArray = dat.CSV2DictArray(csv_file)
+  entryDictArray = pc.CSV2DictArray(csv_file)
   for year in range(firstyear, lastyear):
     time.sleep(5)
     for entry in entryDictArray:
-      if (str(year) == dat.CSVdatetime2gcal(entry['Start Date'], entry['Start Time'], zone).split('-')[0]):
+      if (str(year) == pc.CSVdatetime2gcal(entry['Start Date'], entry['Start Time'], zone).split('-')[0]):
         event = {
               'summary': entry['Subject'],
               'description': entry['Description'],
               'start': {
-                       'dateTime': dat.CSVdatetime2gcal(entry['Start Date'], entry['Start Time'], zone),
+                       'dateTime': pc.CSVdatetime2gcal(entry['Start Date'], entry['Start Time'], zone),
                        },
               'end': {
-                     'dateTime': dat.CSVdatetime2gcal(entry['End Date'], entry['End Time'], zone),
+                     'dateTime': pc.CSVdatetime2gcal(entry['End Date'], entry['End Time'], zone),
                      },
               'reminders': {
                            'useDefault': False,
@@ -170,7 +207,7 @@ def uploadCSV(service, csv_file, cal_name, zone, firstyear, lastyear):
                                         ],
                            },
               }
-        addEvent(service, dat.DictEntry2Gcal(event), cal_id)
+        addEvent(service, pc.DictEntry2Gcal(event), cal_id)
 
 def addEvent(service, event, cal_id):
   new_event = service.events().insert(calendarId=cal_id, body=event).execute()

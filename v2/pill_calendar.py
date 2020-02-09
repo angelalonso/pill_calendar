@@ -15,6 +15,7 @@ import itertools
 import os
 import sys
 import yaml
+import online
 
 CSV_FILE = 'test_files/Calendar.csv'
 
@@ -336,47 +337,20 @@ def DictEntry2Gcal(event):
 ''' START - OLD PILLCAL FUNCTIONS '''
 
 
-def get_credentials():
-    """Gets valid user credentials from storage.
-
-    If nothing has been stored, or if the stored credentials are invalid,
-    the OAuth2 flow is completed to obtain the new credentials.
-
-    Returns:
-        Credentials, the obtained credential.
-    """
-    home_dir = os.path.expanduser('~')
-    credential_dir = os.path.join(home_dir, '.credentials')
-    if not os.path.exists(credential_dir):
-        os.makedirs(credential_dir)
-    credential_path = os.path.join(credential_dir,
-                                   'pill_cal.json')
-
-    store = Storage(credential_path)
-    credentials = store.get()
-    if not credentials or credentials.invalid:
-        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
-        flow.user_agent = APPLICATION_NAME
-        if flags:
-            credentials = tools.run_flow(flow, store, flags)
-        else: # Needed only for compatibility with Python 2.6
-            credentials = tools.run(flow, store)
-        print('Storing credentials to ' + credential_path)
-    return credentials
-
-
-
+# TODO: remove this
 def main(mode):
   """Shows basic usage of the Google Calendar API.
 
   Creates a Google Calendar API service object
   and proceeds according to parameters
   """
+  # This is already on online.py
   if (ONLINE != 'false'):
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('calendar', 'v3', http=http)
-
+  # TODO: remove the part above
+  # TODO: make sure the part below is not in use
   try:
     if mode == "list":
       dat.DictArray2CSV((events.online2DictArray(service, online.getIDCal(service, CAL_NAME), FIRSTYEAR, LASTYEAR)))
