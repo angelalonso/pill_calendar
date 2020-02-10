@@ -1,6 +1,14 @@
+import httplib2
 import json
+import os
 import time
+from googleapiclient import discovery
+from oauth2client.file import Storage
 import pill_calendar as pc
+
+
+''' CONNECTION FUNCTIONS '''
+
 
 def getCredentials():
     '''Gets valid user credentials from storage.
@@ -40,6 +48,55 @@ def getConnection():
     return service
 
 
+def getIDCal(service, cal_name):
+    ''' Gets the ID for a given Calendar Name
+    '''
+    resultList = []
+    page_token = None
+    while True:
+        cal_list = service.calendarList().list(pageToken=page_token).execute()
+        for calendar_list_entry in cal_list['items']:
+            if calendar_list_entry['summary'] == cal_name:
+                resultList.append(calendar_list_entry['id'])
+        page_token = cal_list.get('nextPageToken')
+        if not page_token:
+            break
+    return resultList[0]
+
+
+''' I/O FUNCTIONS '''
+
+
+def loadCalendar(service, calID, firstyear, lastyear):
+    ''' Load online Calendar into memory
+    '''
+    calendar_data = []
+    for numyear in range(firstyear, lastyear):
+        year = str(numyear)
+        for month in ('01', '02', '03', '04', '05', '06', '07', '08', '09',
+                      '10', '11', '12'):
+            thisMin = year+'-'+month+'-01T00:00:00Z'
+            if month == '12':
+                nextyear = str(int(year)+1)
+                thisMax = nextyear+'-01-01T00:00:00Z'
+            else:
+                nextmonth = str(int(month)+1).zfill(2)
+                thisMax = year+'-'+nextmonth+'-01T00:00:00Z'
+            eventsResult = service.events().list(
+                calendarId=calID, timeMin=thisMin, timeMax=thisMax,
+                singleEvents=True, orderBy='startTime').execute()
+            events = eventsResult.get('items', [])
+            if not events:
+                pass
+            else:
+                for event in events:
+                    calendar_data.append(event)
+    return calendar_data
+
+
+''' TO BE DELETED/CORRECTED '''
+
+
 def newCal(service, cal_name):
     calendar = {'summary': cal_name}
     created_calendar = service.calendars().insert(body=calendar).execute()
@@ -48,20 +105,6 @@ def delCal(service, cal_name):
     calID = getIDCal(service, cal_name)
     service.calendars().delete(calendarId=calID).execute()
             
-
-def getIDCal(service, cal_name):
-  resultList = []
-  page_token = None
-  while True:
-    cal_list = service.calendarList().list(pageToken=page_token).execute()
-    for calendar_list_entry in cal_list['items']:
-      if calendar_list_entry['summary'] == cal_name:
-        resultList.append(calendar_list_entry['id'])
-    page_token = cal_list.get('nextPageToken')
-    if not page_token:
-      break
-  return resultList[0]
-
 
 def conflict(event_offline, event_online):
   errors = []
@@ -132,8 +175,8 @@ def updatefromCSV(service, csv_file, cal_name, zone, firstyear, lastyear):
 ''' OLD EVENTS '''
 
 
+## TODO: to be deleted
 def listonline(service, calID, firstyear, lastyear):
-
     eventsList = []
     for numyear in range(firstyear, lastyear):
         year = str(numyear)

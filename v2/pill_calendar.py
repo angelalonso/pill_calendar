@@ -69,7 +69,7 @@ def verbose(message, level):
 ''' I/O FUNCTIONS '''
 
 
-def loadCalendarFile(csv_file):
+def loadCalendar(csv_file):
     ''' Load CSV file into memory
     '''
     calendar_data = []
@@ -401,7 +401,7 @@ if __name__ == '__main__':
     cal_file, err = getEnvVar('CAL_FILE')
     if err == 2:
         cal_file = 'Calendar.csv'
-    data_set = loadCalendarFile(cal_file)
+    data_set = loadCalendar(cal_file)
 
     try:
         if sys.argv[1] == 'add_pattern':
@@ -422,28 +422,31 @@ if __name__ == '__main__':
             new_date = getNewTestDate(previous_test_entry)
             data_set = addEntry(data_set, new_date.strftime('%Y-%m-%dT09:15:00Z'), new_date.strftime('%Y-%m-%dT10:00:00Z'), 'Test Blood')
             saveCalendarFile(data_set, cal_file)
-        # TODO: redo this
-        elif sys.argv[1] == "list":
-            dat.DictArray2CSV((events.online2DictArray(service, online.getIDCal(service, CAL_NAME), FIRSTYEAR, LASTYEAR)))
-            # TODO: Download directly to CSV; ask before
-        # TODO: redo this
-        if sys.argv[1] == "download":
-            dat.DictArray2CSVFile((events.online2DictArray(service, online.getIDCal(service, CAL_NAME), FIRSTYEAR, LASTYEAR)), cal_file)
-        # TODO: is this needed?
-        if sys.argv[1] == "upload":
-            events.uploadCSV(service, cal_file, CAL_NAME, ZONE, FIRSTYEAR, LASTYEAR)
-        # TODO: redo this
-        if sys.argv[1] == "update":
-            online.updatefromCSV(service, cal_file, CAL_NAME, ZONE, FIRSTYEAR, LASTYEAR)
-            dat.DictArray2CSVFile((events.online2DictArray(service, online.getIDCal(service, CAL_NAME), FIRSTYEAR, LASTYEAR)), cal_file)
-        # TODO: redo this
-        if sys.argv[1] == "clearcal":
-            #TODO: Ask the user before deleting!!
-            online.delCal(service, CAL_NAME)
-            online.newCal(service, CAL_NAME)
-        # TODO: NEW function to clean up cal (remove duplicates...)
+#        # TODO: redo this
+#        elif sys.argv[1] == "list":
+#            dat.DictArray2CSV((events.online2DictArray(service, online.getIDCal(service, CAL_NAME), FIRSTYEAR, LASTYEAR)))
+#            # TODO: Download directly to CSV; ask before
+#        # TODO: redo this
+#        elif sys.argv[1] == "download":
+#            dat.DictArray2CSVFile((events.online2DictArray(service, online.getIDCal(service, CAL_NAME), FIRSTYEAR, LASTYEAR)), cal_file)
+#        # TODO: is this needed?
+#        elif sys.argv[1] == "upload":
+#            events.uploadCSV(service, cal_file, CAL_NAME, ZONE, FIRSTYEAR, LASTYEAR)
+#        # TODO: redo this
+#        elif sys.argv[1] == "update":
+#            online.updatefromCSV(service, cal_file, CAL_NAME, ZONE, FIRSTYEAR, LASTYEAR)
+#            dat.DictArray2CSVFile((events.online2DictArray(service, online.getIDCal(service, CAL_NAME), FIRSTYEAR, LASTYEAR)), cal_file)
+#        # TODO: redo this
+#        elif sys.argv[1] == "clearcal":
+#            #TODO: Ask the user before deleting!!
+#            online.delCal(service, CAL_NAME)
+#            online.newCal(service, CAL_NAME)
+#        # TODO: NEW function to clean up cal (remove duplicates...)
         elif sys.argv[1] == "test":
-            print(online.updateOnline("test.csv"))
+            connection = online.getConnection()
+            data_set_online = online.loadCalendar(connection, online.getIDCal(connection, CAL_NAME), FIRSTYEAR, LASTYEAR)
+            for entry in data_set_online:
+                print(entry)
         else:
             showHelp()
     except IndexError:
