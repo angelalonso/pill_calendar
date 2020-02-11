@@ -113,17 +113,22 @@ def loadCalendar(service, calID, firstyear, lastyear):
     return calendar_data
 
 
-''' TO BE DELETED/CORRECTED '''
-
-
-def newCal(service, cal_name):
+def createCalendar(service, cal_name):
+    ''' Create a google calendar with the given name
+    '''
     calendar = {'summary': cal_name}
     created_calendar = service.calendars().insert(body=calendar).execute()
 
-def delCal(service, cal_name):
+
+def deleteCalendar(service, cal_name):
+    ''' Delete a google calendar given its name
+    '''
     calID = getIDCal(service, cal_name)
     service.calendars().delete(calendarId=calID).execute()
             
+
+''' TO BE DELETED/CORRECTED '''
+
 
 def conflict(event_offline, event_online):
   errors = []

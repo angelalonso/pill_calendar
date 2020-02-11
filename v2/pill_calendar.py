@@ -21,6 +21,7 @@ class bcolors:
     # stole this from stackoverflow
     RED = '\033[91m'
     YELLOW = '\033[93m'
+    GREEN = '\033[92m'
     BLUE = '\033[94m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
@@ -265,7 +266,8 @@ def compareCSVAndOnline():
                         entry_csv['end_datetime'] != entry_online['end_datetime'] or
                         entry_csv['summary'] != entry_online['summary'] or
                         entry_csv['description'] != entry_online['description']):
-                    entries_to_change.append(entry_csv)
+                    compare_entries = [entry_csv, entry_online]
+                    entries_to_change.append(compare_entries)
     for entry_csv in data_set:
         if entry_csv['event_id'] == '':
             entries_to_add.append(entry_csv)
@@ -280,6 +282,25 @@ def compareCSVAndOnline():
 
     return entries_to_change, entries_to_add
 
+
+def showChanges(entries_to_edit, entries_to_add):
+    print("\nCHANGES:")
+    for entry in to_change:
+        print(' -> ID: ' + entry[0]['event_id'])
+        for parameter in ['start_datetime', 'end_datetime', 'summary', 'description']:
+            if entry[0][parameter] != entry[1][parameter]:
+                print(parameter + '\t\t' + bcolors.YELLOW + entry[0][parameter]
+                        + '\t-> ' + entry[1][parameter] + bcolors.ENDC)
+        print()
+    print("\nNEW:")
+    for entry in to_add:
+        print(' -> ID <automatically defined>')
+        for parameter in ['start_datetime', 'end_datetime', 'summary', 'description']:
+            print('    ' + bcolors.GREEN + parameter + ' = '
+                    + entry[parameter] + bcolors.ENDC)
+        print()
+    print('\n\t' + bcolors.YELLOW + str(len(entries_to_edit)) + ' Change(s), '
+            + bcolors.GREEN + str(len(entries_to_add)) + ' New entry(ies).' + bcolors.ENDC)
 
 ''' DEBUG FUNCTIONS '''
 
@@ -389,8 +410,8 @@ def main(mode):
       dat.DictArray2CSVFile((events.online2DictArray(service, online.getIDCal(service, CAL_NAME), FIRSTYEAR, LASTYEAR)), cal_file)
     if mode == "clearcal":
       #TODO: Ask the user before deleting!!
-      online.delCal(service, CAL_NAME)
-      online.newCal(service, CAL_NAME)
+      online.deleteCalendar(service, CAL_NAME)
+      online.createCalendar(service, CAL_NAME)
     elif mode == "test":
       print(online.updateOnline("test.csv"))
   except IndexError:
@@ -447,6 +468,11 @@ if __name__ == '__main__':
             new_date = getNewTestDate(previous_test_entry)
             data_set = addEntry(data_set, new_date.strftime('%Y-%m-%dT09:15:00Z'), new_date.strftime('%Y-%m-%dT10:00:00Z'), 'Test Blood')
             saveCalendarFile(data_set, cal_file)
+        elif sys.argv[1] == "plan":
+            connection = online.getConnection()
+            data_set_online = online.loadCalendar(connection, online.getIDCal(connection, CAL_NAME), FIRSTYEAR, LASTYEAR)
+            to_change, to_add = compareCSVAndOnline()
+            showChanges(to_change, to_add)
 #        # TODO: redo this
 #        elif sys.argv[1] == "list":
 #            dat.DictArray2CSV((events.online2DictArray(service, online.getIDCal(service, CAL_NAME), FIRSTYEAR, LASTYEAR)))
@@ -464,21 +490,9 @@ if __name__ == '__main__':
 #        # TODO: redo this
 #        elif sys.argv[1] == "clearcal":
 #            #TODO: Ask the user before deleting!!
-#            online.delCal(service, CAL_NAME)
-#            online.newCal(service, CAL_NAME)
+#            online.deleteCalendar(service, CAL_NAME)
+#            online.createCalendar(service, CAL_NAME)
 #        # TODO: NEW function to clean up cal (remove duplicates...)
-        elif sys.argv[1] == "test":
-            connection = online.getConnection()
-            data_set_online = online.loadCalendar(connection, online.getIDCal(connection, CAL_NAME), FIRSTYEAR, LASTYEAR)
-            to_change, to_add = compareCSVAndOnline()
-            print(len(data_set))
-            print(len(data_set_online))
-            print("TO CHANGE:")
-            for entry in to_change:
-                print(entry)
-            print("TO ADD:")
-            for entry in to_add:
-                print(entry)
         else:
             showHelp()
     except IndexError:
