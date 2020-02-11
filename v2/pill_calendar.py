@@ -209,7 +209,7 @@ def mergeEntries(group_a, group_b):
         if new_b_entry:
             clean_group_b.append(b_entry)
     result = clean_group_a + common_entries + clean_group_b
-    print("\n" + bcolors.YELLOW + str(changed) + " CHANGED, " + bcolors.BLUE + str(len(clean_group_b)) + " NEW" + bcolors.ENDC)
+    print("\n" + bcolors.YELLOW + str(changed) + " CHANGED, " + bcolors.GREEN + str(len(clean_group_b)) + " NEW" + bcolors.ENDC)
     return result
 
 
@@ -284,6 +284,13 @@ def compareCSVAndOnline():
 
 
 def showChanges(entries_to_edit, entries_to_add):
+    print("\nNEW:")
+    for entry in to_add:
+        print(' -> ID <automatically defined>')
+        for parameter in ['start_datetime', 'end_datetime', 'summary', 'description']:
+            print('    ' + bcolors.GREEN + parameter + ' = '
+                    + entry[parameter] + bcolors.ENDC)
+        print()
     print("\nCHANGES:")
     for entry in to_change:
         print(' -> ID: ' + entry[0]['event_id'])
@@ -291,13 +298,8 @@ def showChanges(entries_to_edit, entries_to_add):
             if entry[0][parameter] != entry[1][parameter]:
                 print(parameter + '\t\t' + bcolors.YELLOW + entry[0][parameter]
                         + '\t-> ' + entry[1][parameter] + bcolors.ENDC)
-        print()
-    print("\nNEW:")
-    for entry in to_add:
-        print(' -> ID <automatically defined>')
-        for parameter in ['start_datetime', 'end_datetime', 'summary', 'description']:
-            print('    ' + bcolors.GREEN + parameter + ' = '
-                    + entry[parameter] + bcolors.ENDC)
+            else:
+                print(parameter + '\t\t' + entry[0][parameter])
         print()
     print('\n\t' + bcolors.YELLOW + str(len(entries_to_edit)) + ' Change(s), '
             + bcolors.GREEN + str(len(entries_to_add)) + ' New entry(ies).' + bcolors.ENDC)
@@ -325,7 +327,7 @@ def showEntries(data_set):
 
 def showHelp():
     print("SYNTAX:")
-    print(" add_pattern '15/04/2020' 35 '[1, 2, 2, 1, 2, 2, 2]'")
+    print(" add_pattern '15/04/2020' 35 '1, 2, 2, 1, 2, 2, 2'")
     print(" add_test")
 
 
