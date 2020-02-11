@@ -17,8 +17,6 @@ import sys
 import yaml
 import online
 
-CSV_FILE = 'test_files/Calendar.csv'
-
 class bcolors:
     # stole this from stackoverflow
     RED = '\033[91m'
@@ -256,6 +254,33 @@ def overwriteWithoutConfirm(search_entries, search_parameter, search_string, new
     return overwritten_entries, previous_entry
 
 
+def compareCSVAndOnline():
+    entries_to_change = []
+    entries_to_add = []
+    for entry_csv in data_set:
+        for entry_online in data_set_online:
+            if entry_csv['event_id'] == entry_online['event_id']:
+                if (
+                        entry_csv['start_datetime'] != entry_online['start_datetime'] or
+                        entry_csv['end_datetime'] != entry_online['end_datetime'] or
+                        entry_csv['summary'] != entry_online['summary'] or
+                        entry_csv['description'] != entry_online['description']):
+                    entries_to_change.append(entry_csv)
+    for entry_csv in data_set:
+        if entry_csv['event_id'] == '':
+            entries_to_add.append(entry_csv)
+        else:
+            found = False
+            for entry_online in data_set_online:
+                if entry_csv['event_id'] == entry_online['event_id']:
+                    found = True
+            if found == False:
+                entries_to_add.append(entry_csv)
+
+
+    return entries_to_change, entries_to_add
+
+
 ''' DEBUG FUNCTIONS '''
 
 
@@ -400,7 +425,7 @@ if __name__ == '__main__':
 
     cal_file, err = getEnvVar('CAL_FILE')
     if err == 2:
-        cal_file = 'Calendar.csv'
+        cal_file = 'test_files/Calendar.csv'
     data_set = loadCalendar(cal_file)
 
     try:
@@ -445,7 +470,14 @@ if __name__ == '__main__':
         elif sys.argv[1] == "test":
             connection = online.getConnection()
             data_set_online = online.loadCalendar(connection, online.getIDCal(connection, CAL_NAME), FIRSTYEAR, LASTYEAR)
-            for entry in data_set_online:
+            to_change, to_add = compareCSVAndOnline()
+            print(len(data_set))
+            print(len(data_set_online))
+            print("TO CHANGE:")
+            for entry in to_change:
+                print(entry)
+            print("TO ADD:")
+            for entry in to_add:
                 print(entry)
         else:
             showHelp()
