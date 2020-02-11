@@ -64,6 +64,24 @@ def getIDCal(service, cal_name):
     return resultList[0]
 
 
+''' HELPER FUNCTIONS '''
+
+
+def getCSVStructEntry(online_entry):
+    ''' Given an entry from Google Calendar
+          it builds the entry with only the fields
+          that our local CSV needs
+    '''
+    entry = {}
+    entry['event_id'] = online_entry['id']
+    entry['summary'] = online_entry['summary']
+    entry['description'] = online_entry['description']
+    entry['start_datetime'] = online_entry['start']['dateTime']
+    entry['end_datetime'] = online_entry['end']['dateTime']
+    
+    return entry
+
+
 ''' I/O FUNCTIONS '''
 
 
@@ -90,7 +108,8 @@ def loadCalendar(service, calID, firstyear, lastyear):
                 pass
             else:
                 for event in events:
-                    calendar_data.append(event)
+                    entry = getCSVStructEntry(event)
+                    calendar_data.append(entry)
     return calendar_data
 
 
