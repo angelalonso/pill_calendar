@@ -13,6 +13,7 @@ import csv
 import datetime
 import itertools
 import os
+import shutil
 import sys
 import yaml
 import online
@@ -88,6 +89,12 @@ def saveCalendarFile(entries, cal_file):
       f.write(row['event_id'] + "," + row['summary'] + "," + row['description'] + "," + row['start_datetime'] + "," + row['end_datetime'] + "\n")
     f.close()
 
+
+def updateCalendarFile(entries, cal_file):
+    ''' Save entries in CSV format, saving a backup first
+    '''
+    #TODO: make a backup from the original file (follow link)
+    shutil.copy(cal_file, 'test.csv', follow_symlinks=True)
 
 ''' MAIN FUNCTIONS '''
 
@@ -227,7 +234,7 @@ def overwriteAfterConfirm(entry_a, entry_b):
         print("\nChanging entry for " + entry_a['start_datetime'])
         for parameter in changes:
             print(parameter + ':\t' + entry_a[parameter] + ' -> ' + bcolors.YELLOW + entry_b[parameter] + bcolors.ENDC)
-        if not input("Do you want to overwrite? (y/n): ").lower().strip()[:1] == "y":
+        if not input("\nDo you want to overwrite? (y/n): ").lower().strip()[:1] == "y":
             return False, len(changes)
         else:
             return True, len(changes)
@@ -293,13 +300,29 @@ def showChanges(entries_to_edit, entries_to_add):
         print()
     print("\nCHANGES:")
     for entry in to_change:
-        print(' -> ID: ' + entry[0]['event_id'])
+        print(' -> ID: ' + entry[1]['event_id'])
         for parameter in ['start_datetime', 'end_datetime', 'summary', 'description']:
             if entry[0][parameter] != entry[1][parameter]:
-                print(parameter + '\t\t' + bcolors.YELLOW + entry[0][parameter]
-                        + '\t-> ' + entry[1][parameter] + bcolors.ENDC)
+                print(parameter + '\t\t' + bcolors.YELLOW + entry[1][parameter]
+                        + '\t-> ' + entry[0][parameter] + bcolors.ENDC)
             else:
-                print(parameter + '\t\t' + entry[0][parameter])
+                print(parameter + '\t\t' + entry[1][parameter])
+        print()
+    print('\n\t' + bcolors.YELLOW + str(len(entries_to_edit)) + ' Change(s), '
+            + bcolors.GREEN + str(len(entries_to_add)) + ' New entry(ies).' + bcolors.ENDC)
+
+
+def applyChanges(entries_to_edit, entries_to_add):
+    for entry in to_add:
+        print(' -> ADDED')
+        for parameter in ['start_datetime', 'end_datetime', 'summary', 'description']:
+            print('    ' + bcolors.GREEN + parameter + ' = '
+                    + entry[parameter] + bcolors.ENDC)
+        print()
+        online.addEvent(connection, entry, cal_id)
+    for entry in to_change:
+        print(bcolors.YELLOW + ' -> CHANGED: ID ' + entry[1]['event_id'] + bcolors.ENDC)
+        online.updateEvent(connection, cal_id, DictEntry2Gcal(entry[0]), entry[0]['event_id'] )
         print()
     print('\n\t' + bcolors.YELLOW + str(len(entries_to_edit)) + ' Change(s), '
             + bcolors.GREEN + str(len(entries_to_add)) + ' New entry(ies).' + bcolors.ENDC)
@@ -327,8 +350,20 @@ def showEntries(data_set):
 
 def showHelp():
     print("SYNTAX:")
-    print(" add_pattern '15/04/2020' 35 '1, 2, 2, 1, 2, 2, 2'")
+    print(" add_pattern <date_on_es_format> <nr_of_new_entries> <pattern>")
+    print("    Add X daily entries from a given date following a pattern")
+    print("    - date_on_es_format example:  '15/04/2020'")
+    print("    - nr_of_new_entries example:  15")
+    print("    - pattern example:            '1, 2, 2, 1, 2, 2, 2'\n")
     print(" add_test")
+    print("    Modify the latest 'Blood Test' entry into a value,")
+    print("      and configure the next date for a Blood Test\n")
+    print("    - It does not require any parameters\n")
+    print(" plan")
+    print("    Loads the Google Calendar entries,")
+    print("      and compares to the ones currently defined on the local CSV\n")
+    print(" help")
+    print("    Show this help")
 
 
 ''' START - OLD DATA FUNCTIONS '''
@@ -448,7 +483,7 @@ if __name__ == '__main__':
 
     cal_file, err = getEnvVar('CAL_FILE')
     if err == 2:
-        cal_file = 'test_files/Calendar.csv'
+        cal_file = 'Calendar.csv'
     data_set = loadCalendar(cal_file)
 
     try:
@@ -475,6 +510,23 @@ if __name__ == '__main__':
             data_set_online = online.loadCalendar(connection, online.getIDCal(connection, CAL_NAME), FIRSTYEAR, LASTYEAR)
             to_change, to_add = compareCSVAndOnline()
             showChanges(to_change, to_add)
+        elif sys.argv[1] == "apply":
+            connection = online.getConnection()
+            cal_id = online.getIDCal(connection, CAL_NAME)
+            data_set_online = online.loadCalendar(connection, online.getIDCal(connection, CAL_NAME), FIRSTYEAR, LASTYEAR)
+            to_change, to_add = compareCSVAndOnline()
+            showChanges(to_change, to_add)
+            if input("\nDo you want to apply? (y/n): ").lower().strip()[:1] == "y":
+                print()
+                applyChanges(to_change, to_add)
+                data_set_online_changed = online.loadCalendar(connection, online.getIDCal(connection, CAL_NAME), FIRSTYEAR, LASTYEAR)
+                updateCalendarFile(data_set_online_changed, cal_file)
+                print("CHANGES DONE")
+            else:
+                print("CANCELLED")
+        elif sys.argv[1] == "test":
+            data_set_online_changed = []
+            updateCalendarFile(data_set_online_changed, cal_file)
 #        # TODO: redo this
 #        elif sys.argv[1] == "list":
 #            dat.DictArray2CSV((events.online2DictArray(service, online.getIDCal(service, CAL_NAME), FIRSTYEAR, LASTYEAR)))

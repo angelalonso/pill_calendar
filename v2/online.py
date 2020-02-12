@@ -127,6 +127,22 @@ def deleteCalendar(service, cal_name):
     service.calendars().delete(calendarId=calID).execute()
             
 
+def addEvent(service, event, cal_id):
+    ''' Add a new Event to the Google Calendar
+          defined by the Calendar ID
+    '''
+    new_event = service.events().insert(calendarId=cal_id, body=event).execute()
+    print ('Event created: ' + str(new_event))
+
+
+def updateEvent(service, cal_id, event, event_id ):
+    ''' Modify an Event, given the event's ID,
+          on the Google Calendar defined by the Calendar ID
+    '''
+    updated_event = service.events().update(calendarId=cal_id, eventId=event_id, body=event).execute()
+    print ('Event updated: ' + str(updated_event))
+
+
 ''' TO BE DELETED/CORRECTED '''
 
 
@@ -276,13 +292,6 @@ def uploadCSV(service, csv_file, cal_name, zone, firstyear, lastyear):
               }
         addEvent(service, pc.DictEntry2Gcal(event), cal_id)
 
-def addEvent(service, event, cal_id):
-  new_event = service.events().insert(calendarId=cal_id, body=event).execute()
-  print ('Event created: ' + str(new_event))
-
-def updateEvent(service, cal_id, event, event_id ):
-  updated_event = service.events().update(calendarId=cal_id, eventId=event_id, body=event).execute()
-  print ('Event updated: ' + str(updated_event))
 
 def deleteEvent(service, event, cal_id, event_id):
   service.events().delete(calendarId=cal_id, eventId=event_id).execute()
