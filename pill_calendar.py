@@ -365,7 +365,7 @@ def showEntries(data_set):
 
 
 def showHelp():
-    print("SYNTAX: make <command> <parameters>")
+    print("SYNTAX: make <command> <parameters>\n")
     print(" add_pattern <date_on_es_format> <nr_of_new_entries> <pattern>")
     print("    Add X daily entries from a given date following a pattern")
     print("    - date_on_es_format example:  '15/04/2020'")
@@ -509,10 +509,10 @@ if __name__ == '__main__':
     cal_file, err = getEnvVar('CAL_FILE')
     if err == 2:
         cal_file = 'Calendar.csv'
-    data_set = loadCalendar(cal_file)
 
     try:
         if sys.argv[1] == 'add_pattern':
+            data_set = loadCalendar(cal_file)
             START_DATE = sys.argv[2]
             NR_DAYS = int(sys.argv[3])
             PATTERN = sys.argv[4].split(',')
@@ -520,22 +520,23 @@ if __name__ == '__main__':
             merged = mergeEntries(data_set, new_entries)
             saveCalendarFile(merged, cal_file)
         elif sys.argv[1] == 'add_test':
-            # TODO: ask for new value
+            data_set = loadCalendar(cal_file)
             new_test_result = input("Enter test result: ")
             new_entry = {}
             new_entry['summary'] = 'Blood Level: ' + str(new_test_result)
             new_entry['description'] = new_entry['summary']
             data_set, previous_test_entry = overwriteWithoutConfirm(data_set, 'summary', 'Test Blood', new_entry)
-            # TODO: propose a new date for Test Blood, add it
             new_date = getNewTestDate(previous_test_entry)
             data_set = addEntry(data_set, new_date.strftime('%Y-%m-%dT09:15:00Z'), new_date.strftime('%Y-%m-%dT10:00:00Z'), 'Test Blood')
             saveCalendarFile(data_set, cal_file)
         elif sys.argv[1] == "plan":
+            data_set = loadCalendar(cal_file)
             connection = online.getConnection()
             data_set_online = online.loadCalendar(connection, online.getIDCal(connection, CAL_NAME), FIRSTYEAR, LASTYEAR)
             to_change, to_add = compareCSVAndOnline()
             showChanges(to_change, to_add)
         elif sys.argv[1] == "apply":
+            data_set = loadCalendar(cal_file)
             connection = online.getConnection()
             cal_id = online.getIDCal(connection, CAL_NAME)
             data_set_online = online.loadCalendar(connection, online.getIDCal(connection, CAL_NAME), FIRSTYEAR, LASTYEAR)
@@ -550,10 +551,7 @@ if __name__ == '__main__':
             else:
                 verbose("CANCELLED", 'warn')
         elif sys.argv[1] == "test":
-            #data_set_online_changed = []
-            connection = online.getConnection()
-            data_set_online_changed = online.loadCalendar(connection, online.getIDCal(connection, CAL_NAME), FIRSTYEAR, LASTYEAR)
-            updateCalendarFile(data_set_online_changed, cal_file)
+            pass
         else:
             showHelp()
     except IndexError:
