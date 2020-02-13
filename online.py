@@ -88,6 +88,7 @@ def getCSVStructEntry(online_entry):
 def loadCalendar(service, calID, firstyear, lastyear):
     ''' Load online Calendar into memory
     '''
+    pc.verbose("Downloading current entries at Google Calendar...", 1)
     calendar_data = []
     for numyear in range(firstyear, lastyear):
         year = str(numyear)

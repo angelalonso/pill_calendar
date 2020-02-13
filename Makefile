@@ -9,6 +9,8 @@ endif
 
 TEST=pipenv run python3 pill_calendar.py test
 
+CLEAN=rm Calendar.csv.2*
+
 ADD=pipenv run python3 pill_calendar.py add_pattern
 
 PLAN=pipenv run python3 pill_calendar.py plan
@@ -19,6 +21,9 @@ HELP=pipenv run python3 pill_calendar.py help
 
 test:
 	$(TEST)
+
+clean:
+	$(CLEAN)
 
 add_pattern:
 	@$(ADD) $(RUN_ARGS)

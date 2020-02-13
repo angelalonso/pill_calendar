@@ -55,6 +55,9 @@ def verbose(message, level):
     elif level == 'debug':
         print(bcolors.BLUE + "DEBUG: " + bcolors.ENDC + bcolors.BOLD
               + str(message) + bcolors.ENDC)  # noqa W503
+    elif level == 'ok':
+        print(bcolors.GREEN + bcolors.BOLD
+              + str(message) + bcolors.ENDC)  # noqa W503
     elif level == 'warn':
         print(bcolors.YELLOW + "WARN: " + bcolors.ENDC + bcolors.BOLD
               + str(message) + bcolors.ENDC)  # noqa W503
@@ -72,6 +75,7 @@ def verbose(message, level):
 def loadCalendar(csv_file):
     ''' Load CSV file into memory
     '''
+    verbose("Loading current entries at " + csv_file + "...", 1)
     calendar_data = []
     with open(csv_file) as csvfile:
         reader = csv.DictReader(csvfile)
@@ -93,8 +97,18 @@ def saveCalendarFile(entries, cal_file):
 def updateCalendarFile(entries, cal_file):
     ''' Save entries in CSV format, saving a backup first
     '''
-    #TODO: make a backup from the original file (follow link)
-    shutil.copy(cal_file, 'test.csv', follow_symlinks=True)
+    backup_name = '.' + datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + '.bkp'
+    shutil.copy(cal_file, cal_file + backup_name, follow_symlinks=True)
+
+    f = open(cal_file,"w") 
+    f.write("event_id,summary,description,start_datetime,end_datetime\n")
+    for row in entries:
+      f.write(row['event_id'] + "," + row['summary'] + "," + row['description'] + "," + row['start_datetime'] + "," + row['end_datetime'] + "\n")
+    f.close()
+
+    verbose(cal_file + " has been updated", 1)
+    verbose("A backup has been saved under " + cal_file + backup_name, 2)
+
 
 ''' MAIN FUNCTIONS '''
 
@@ -263,6 +277,7 @@ def overwriteWithoutConfirm(search_entries, search_parameter, search_string, new
 
 
 def compareCSVAndOnline():
+    verbose("Comparing entries from local file and entries from Google Calendar...", 1)
     entries_to_change = []
     entries_to_add = []
     for entry_csv in data_set:
@@ -313,6 +328,7 @@ def showChanges(entries_to_edit, entries_to_add):
 
 
 def applyChanges(entries_to_edit, entries_to_add):
+    verbose("Updating entries at Google Calendar...", 1)
     for entry in to_add:
         print(' -> ADDED')
         for parameter in ['start_datetime', 'end_datetime', 'summary', 'description']:
@@ -349,7 +365,7 @@ def showEntries(data_set):
 
 
 def showHelp():
-    print("SYNTAX:")
+    print("SYNTAX: make <command> <parameters>")
     print(" add_pattern <date_on_es_format> <nr_of_new_entries> <pattern>")
     print("    Add X daily entries from a given date following a pattern")
     print("    - date_on_es_format example:  '15/04/2020'")
@@ -362,6 +378,15 @@ def showHelp():
     print(" plan")
     print("    Loads the Google Calendar entries,")
     print("      and compares to the ones currently defined on the local CSV\n")
+    print(" apply")
+    print("    Loads the Google Calendar entries,")
+    print("      compares to the ones currently defined on the local CSV")
+    print("      then asks for confirmation to apply")
+    print("      after applying, it backs up our local CSV")
+    print("      it loads again the modified set of entries at Google Calendar")
+    print("      and updates our local CSV\n")
+    print(" clean")
+    print("    Deletes any previous backup files from our local CSV\n")
     print(" help")
     print("    Show this help")
 
@@ -521,32 +546,14 @@ if __name__ == '__main__':
                 applyChanges(to_change, to_add)
                 data_set_online_changed = online.loadCalendar(connection, online.getIDCal(connection, CAL_NAME), FIRSTYEAR, LASTYEAR)
                 updateCalendarFile(data_set_online_changed, cal_file)
-                print("CHANGES DONE")
+                verbose("CHANGES DONE", 'ok')
             else:
-                print("CANCELLED")
+                verbose("CANCELLED", 'warn')
         elif sys.argv[1] == "test":
-            data_set_online_changed = []
+            #data_set_online_changed = []
+            connection = online.getConnection()
+            data_set_online_changed = online.loadCalendar(connection, online.getIDCal(connection, CAL_NAME), FIRSTYEAR, LASTYEAR)
             updateCalendarFile(data_set_online_changed, cal_file)
-#        # TODO: redo this
-#        elif sys.argv[1] == "list":
-#            dat.DictArray2CSV((events.online2DictArray(service, online.getIDCal(service, CAL_NAME), FIRSTYEAR, LASTYEAR)))
-#            # TODO: Download directly to CSV; ask before
-#        # TODO: redo this
-#        elif sys.argv[1] == "download":
-#            dat.DictArray2CSVFile((events.online2DictArray(service, online.getIDCal(service, CAL_NAME), FIRSTYEAR, LASTYEAR)), cal_file)
-#        # TODO: is this needed?
-#        elif sys.argv[1] == "upload":
-#            events.uploadCSV(service, cal_file, CAL_NAME, ZONE, FIRSTYEAR, LASTYEAR)
-#        # TODO: redo this
-#        elif sys.argv[1] == "update":
-#            online.updatefromCSV(service, cal_file, CAL_NAME, ZONE, FIRSTYEAR, LASTYEAR)
-#            dat.DictArray2CSVFile((events.online2DictArray(service, online.getIDCal(service, CAL_NAME), FIRSTYEAR, LASTYEAR)), cal_file)
-#        # TODO: redo this
-#        elif sys.argv[1] == "clearcal":
-#            #TODO: Ask the user before deleting!!
-#            online.deleteCalendar(service, CAL_NAME)
-#            online.createCalendar(service, CAL_NAME)
-#        # TODO: NEW function to clean up cal (remove duplicates...)
         else:
             showHelp()
     except IndexError:
