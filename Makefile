@@ -7,7 +7,9 @@ ifeq (add_pattern,$(firstword $(MAKECMDGOALS)))
   $(eval $(RUN_ARGS):;@:)
 endif
 
-TEST=pipenv run python3 pill_calendar.py test
+TEST=pipenv run pytest --cov . -vv
+
+DEV=pipenv run python3 pill_calendar.py dev
 
 CLEAN=rm Calendar.csv.2*
 
@@ -23,6 +25,9 @@ HELP=pipenv run python3 pill_calendar.py help
 
 test:
 	$(TEST)
+
+dev:
+	$(DEV)
 
 clean:
 	$(CLEAN)

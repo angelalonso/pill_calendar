@@ -8,11 +8,11 @@ class TestPillCalendar:
         pass
 
 
-    def test_loadCalendarCSV(self):
+    def test_loadCalendar(self):
         ''' Test that we properly load data from CSV
         '''
         cal_file = './test_files/Calendar.csv'
-        data = pc.loadCalendarCSV(cal_file)
+        data = pc.loadCalendar(cal_file)
         expected_data = [{'event_id': 'aaaaaaaaaaaaaaaaaaaaaaaaaa',
                 'description': 'Sintrom Amount: 2',
                 'end_datetime': '2013-07-07T20:15:00Z',
@@ -41,7 +41,7 @@ class TestPillCalendar:
         ''' Test that we properly load data from CSV
         '''
         cal_file = './test_files/Calendar.csv'
-        data = pc.getEntries(pc.loadCalendarCSV(cal_file), 'Pills')
+        data = pc.getEntries(pc.loadCalendar(cal_file), 'Pills')
         expected_data = [{'event_id': 'aaaaaaaaaaaaaaaaaaaaaaaaaa',
                 'description': 'Sintrom Amount: 2',
                 'end_datetime': '2013-07-07T20:15:00Z',
@@ -55,7 +55,7 @@ class TestPillCalendar:
 
         assert data == expected_data
 
-        data = pc.getEntries(pc.loadCalendarCSV(cal_file), 'Blood Level')
+        data = pc.getEntries(pc.loadCalendar(cal_file), 'Blood Level')
         expected_data = [{'event_id': 'cccccccccccccccccccccccccc',
                 'description': 'Blood Level: 2.2',
                 'end_datetime': '2013-07-07T10:00:00Z',
@@ -76,7 +76,7 @@ class TestPillCalendar:
         '''
         # Merging exact same 2 dates
         cal_file = './test_files/Calendar.csv'
-        data_set = pc.getEntries(pc.loadCalendarCSV(cal_file), 'Pills')
+        data_set = pc.getEntries(pc.loadCalendar(cal_file), 'Pills')
         new_entries = pc.createEntries('06/07/2013', 2, [1,1])
         merged = pc.mergeEntries(data_set, new_entries)
         expected_data = [{'event_id': 'aaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -92,7 +92,7 @@ class TestPillCalendar:
         assert merged == expected_data
         # Merging bc into ab
         cal_file = './test_files/Calendar.csv'
-        data_set = pc.getEntries(pc.loadCalendarCSV(cal_file), 'Pills')
+        data_set = pc.getEntries(pc.loadCalendar(cal_file), 'Pills')
         new_entries = pc.createEntries('07/07/2013', 2, [1,1])
         merged = pc.mergeEntries(data_set, new_entries)
         expected_data = [{'event_id': 'bbbbbbbbbbbbbbbbbbbbbbbbbb',
@@ -113,7 +113,7 @@ class TestPillCalendar:
         assert merged == expected_data
         # Merging ab into bc
         cal_file = './test_files/Calendar.csv'
-        data_set = pc.getEntries(pc.loadCalendarCSV(cal_file), 'Pills')
+        data_set = pc.getEntries(pc.loadCalendar(cal_file), 'Pills')
         new_entries = pc.createEntries('05/07/2013', 2, [1,1])
         merged = pc.mergeEntries(data_set, new_entries)
         expected_data = [{'event_id': 'aaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -134,7 +134,7 @@ class TestPillCalendar:
         assert merged == expected_data
         # Merging ef into ab
         cal_file = './test_files/Calendar.csv'
-        data_set = pc.getEntries(pc.loadCalendarCSV(cal_file), 'Pills')
+        data_set = pc.getEntries(pc.loadCalendar(cal_file), 'Pills')
         new_entries = pc.createEntries('15/07/2013', 2, [1,1])
         merged = pc.mergeEntries(data_set, new_entries)
         expected_data = [{'event_id': 'aaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -160,7 +160,7 @@ class TestPillCalendar:
         assert merged == expected_data
         # Merging ab into ef
         cal_file = './test_files/Calendar.csv'
-        data_set = pc.getEntries(pc.loadCalendarCSV(cal_file), 'Pills')
+        data_set = pc.getEntries(pc.loadCalendar(cal_file), 'Pills')
         new_entries = pc.createEntries('01/07/2013', 2, [1,1])
         merged = pc.mergeEntries(data_set, new_entries)
         expected_data = [{'event_id': 'aaaaaaaaaaaaaaaaaaaaaaaaaa',

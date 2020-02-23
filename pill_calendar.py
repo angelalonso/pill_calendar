@@ -550,7 +550,7 @@ if __name__ == '__main__':
                 verbose("CHANGES DONE", 'ok')
             else:
                 verbose("CANCELLED", 'warn')
-        elif sys.argv[1] == "test":
+        elif sys.argv[1] == "dev":
             pass
         else:
             showHelp()
