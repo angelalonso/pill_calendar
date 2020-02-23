@@ -132,6 +132,7 @@ def addEvent(service, event, cal_id):
     ''' Add a new Event to the Google Calendar
           defined by the Calendar ID
     '''
+    print(event)
     new_event = service.events().insert(calendarId=cal_id, body=event).execute()
     print ('Event created: ' + str(new_event))
 

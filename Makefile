@@ -11,7 +11,9 @@ TEST=pipenv run python3 pill_calendar.py test
 
 CLEAN=rm Calendar.csv.2*
 
-ADD=pipenv run python3 pill_calendar.py add_pattern
+ADD_PATTERN=pipenv run python3 pill_calendar.py add_pattern
+
+ADD_TEST=pipenv run python3 pill_calendar.py add_test
 
 PLAN=pipenv run python3 pill_calendar.py plan
 
@@ -26,7 +28,10 @@ clean:
 	$(CLEAN)
 
 add_pattern:
-	@$(ADD) $(RUN_ARGS)
+	@$(ADD_PATTERN) $(RUN_ARGS)
+
+add_test:
+	@$(ADD_TEST)
 
 plan:
 	@$(PLAN)

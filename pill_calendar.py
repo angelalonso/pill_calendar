@@ -69,6 +69,28 @@ def verbose(message, level):
         print("         " + str(message))
 
 
+def DictEntry2Gcal(event):
+    # TODO: summary? subject?
+  jsonevent = {
+    'summary': event['summary'],
+    'description': event['description'],
+    'start': {
+       'dateTime': event['start_datetime'],
+    },
+    'end': {
+       'dateTime': event['end_datetime'],
+     },
+    'reminders': {
+      'useDefault': False,
+      'overrides': [
+        {'method': 'popup', 'minutes': 10},
+      ],
+    },
+  }
+
+  return jsonevent
+
+
 ''' I/O FUNCTIONS '''
 
 
@@ -335,7 +357,7 @@ def applyChanges(entries_to_edit, entries_to_add):
             print('    ' + bcolors.GREEN + parameter + ' = '
                     + entry[parameter] + bcolors.ENDC)
         print()
-        online.addEvent(connection, entry, cal_id)
+        online.addEvent(connection, DictEntry2Gcal(entry), cal_id)
     for entry in to_change:
         print(bcolors.YELLOW + ' -> CHANGED: ID ' + entry[1]['event_id'] + bcolors.ENDC)
         online.updateEvent(connection, cal_id, DictEntry2Gcal(entry[0]), entry[0]['event_id'] )
@@ -417,28 +439,6 @@ def DictArray2CSVFile(eventsDictarray, csv_file):
   for row in eventsDictarray:
     f.write(row['event_id'] + "," + row['summary'] + "," + row['description'] + "," + row['start_datetime'] + "," + row['end_datetime'] + "\n")
   f.close()
-
-def DictEntry2Gcal(event):
-    # TODO: summary? subject?
-  jsonevent = {
-    'summary': event['summary'],
-    'description': event['description'],
-    'start': {
-       'dateTime': event['start_datetime'],
-    },
-    'end': {
-       'dateTime': event['end_datetime'],
-     },
-    'reminders': {
-      'useDefault': False,
-      'overrides': [
-        {'method': 'popup', 'minutes': 10},
-      ],
-    },
-  }
-
-  return jsonevent
-
 
 ''' END - OLD DATA FUNCTIONS '''
 
