@@ -367,6 +367,25 @@ def applyChanges(entries_to_edit, entries_to_add):
 
 ''' DEBUG FUNCTIONS '''
 
+def getLatestPillEntry(data_set):
+    pill_entries = []
+    for entry in data_set:
+        if 'Sintrom Amount: ' in entry['summary']:
+            pill_entries.append(entry)
+    last = len(pill_entries) - 1
+    result = pill_entries[last]
+    return result
+
+
+def getNextTestEntry(data_set):
+    pill_entries = []
+    for entry in data_set:
+        if 'Test Blood' in entry['summary']:
+            pill_entries.append(entry)
+    last = len(pill_entries) - 1
+    result = pill_entries[last]
+    return result
+
 
 def showCompare(entry_a, entry_b):
     verbose("comparing:", 0)
@@ -519,6 +538,9 @@ if __name__ == '__main__':
             new_entries = createEntries(START_DATE, NR_DAYS, PATTERN)
             merged = mergeEntries(data_set, new_entries)
             saveCalendarFile(merged, cal_file)
+            data_set = loadCalendar(cal_file)
+            print("Last Pill entry set for " + getLatestPillEntry(data_set)['start_datetime'])
+            print("Next test set for " + getNextTestEntry(data_set)['start_datetime'])
         elif sys.argv[1] == 'add_test':
             data_set = loadCalendar(cal_file)
             new_test_result = input("Enter test result: ")
@@ -529,12 +551,17 @@ if __name__ == '__main__':
             new_date = getNewTestDate(previous_test_entry)
             data_set = addEntry(data_set, new_date.strftime('%Y-%m-%dT09:15:00Z'), new_date.strftime('%Y-%m-%dT10:00:00Z'), 'Test Blood')
             saveCalendarFile(data_set, cal_file)
+            data_set = loadCalendar(cal_file)
+            print("Last Pill entry set for " + getLatestPillEntry(data_set)['start_datetime'])
+            print("Next test set for " + getNextTestEntry(data_set)['start_datetime'])
         elif sys.argv[1] == "plan":
             data_set = loadCalendar(cal_file)
             connection = online.getConnection()
             data_set_online = online.loadCalendar(connection, online.getIDCal(connection, CAL_NAME), FIRSTYEAR, LASTYEAR)
             to_change, to_add = compareCSVAndOnline()
             showChanges(to_change, to_add)
+            print("Last Pill entry set for " + getLatestPillEntry(data_set)['start_datetime'])
+            print("Next test set for " + getNextTestEntry(data_set)['start_datetime'])
         elif sys.argv[1] == "apply":
             data_set = loadCalendar(cal_file)
             connection = online.getConnection()
@@ -550,6 +577,13 @@ if __name__ == '__main__':
                 verbose("CHANGES DONE", 'ok')
             else:
                 verbose("CANCELLED", 'warn')
+            data_set = loadCalendar(cal_file)
+            print("Last Pill entry set for " + getLatestPillEntry(data_set)['start_datetime'])
+            print("Next test set for " + getNextTestEntry(data_set)['start_datetime'])
+        elif sys.argv[1] == "status":
+            data_set = loadCalendar(cal_file)
+            print("Last Pill entry set for " + getLatestPillEntry(data_set)['start_datetime'])
+            print("Next test set for " + getNextTestEntry(data_set)['start_datetime'])
         elif sys.argv[1] == "dev":
             pass
         else:
