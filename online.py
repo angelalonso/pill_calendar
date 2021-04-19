@@ -1,10 +1,22 @@
 import httplib2
 import json
 import os
+import sys
 import time
 from googleapiclient import discovery
 from oauth2client.file import Storage
 import pill_calendar as pc
+
+
+class bcolors:
+    # stole this from stackoverflow
+    RED = '\033[91m'
+    YELLOW = '\033[93m'
+    GREEN = '\033[92m'
+    BLUE = '\033[94m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+    ENDC = '\033[0m'
 
 
 ''' CONNECTION FUNCTIONS '''
@@ -24,6 +36,11 @@ def getCredentials():
     if not os.path.exists(credential_dir):
         os.makedirs(credential_dir)
     credential_path = os.path.join(credential_dir, 'pill_cal.json')
+    if not os.path.exists(credential_path):
+        print('    ' + bcolors.RED + ' File '
+                    + credential_path + " Not found!")
+        sys.exit(2)
+
 
     store = Storage(credential_path)
     credentials = store.get()

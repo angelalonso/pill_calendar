@@ -99,10 +99,16 @@ def loadCalendar(csv_file):
     '''
     verbose("Loading current entries at " + csv_file + "...", 1)
     calendar_data = []
-    with open(csv_file) as csvfile:
-        reader = csv.DictReader(csvfile)
-        for dct in map(dict, reader):
-            calendar_data.append(dct)
+    try:
+        with open(csv_file) as csvfile:
+            reader = csv.DictReader(csvfile)
+            for dct in map(dict, reader):
+                calendar_data.append(dct)
+    except FileNotFoundError:
+        print('    ' + bcolors.RED + ' File '
+                    + csv_file + " Not found!")
+        sys.exit(2)
+
     return calendar_data
 
 
@@ -407,6 +413,8 @@ def showEntries(data_set):
 
 def showHelp():
     print("SYNTAX: make <command> <parameters>\n")
+    print(" status")
+    print("    Shows the last entry on the Calendar and the next scheduled test")
     print(" add_pattern <date_on_es_format> <nr_of_new_entries> <pattern>")
     print("    Add X daily entries from a given date following a pattern")
     print("    - date_on_es_format example:  '15/04/2020'")
