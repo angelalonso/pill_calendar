@@ -419,7 +419,7 @@ def showHelp():
     print("    Add X daily entries from a given date following a pattern")
     print("    - date_on_es_format example:  '15/04/2020'")
     print("    - nr_of_new_entries example:  15")
-    print("    - pattern example:            '1, 2, 2, 1, 2, 2, 2'\n")
+    print("    - pattern example:            '1,2,2,1,2,2,2'\n")
     print(" add_test")
     print("    Modify the latest 'Blood Test' entry into a value,")
     print("      and configure the next date for a Blood Test\n")
