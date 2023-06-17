@@ -152,7 +152,7 @@ def createEntries(start, day_count, pattern):
         entry['end_datetime'] = formatted_date + 'T20:15:00Z'
         entry['event_id'] = ''
         ix = pattern_ix % len(pattern)
-        entry['summary'] = entry['description'] = 'Sintrom Amount: ' + str(pattern[ix])
+        entry['summary'] = entry['description'] = 'Coumadin Amount: ' + str(pattern[ix])
         result.append(entry)
         pattern_ix += 1
     return result
@@ -376,7 +376,7 @@ def applyChanges(entries_to_edit, entries_to_add):
 def getLatestPillEntry(data_set):
     pill_entries = []
     for entry in data_set:
-        if 'Sintrom Amount: ' in entry['summary']:
+        if 'Coumadin Amount: ' in entry['summary']:
             pill_entries.append(entry)
     last = len(pill_entries) - 1
     result = pill_entries[last]
