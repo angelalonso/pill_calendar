@@ -199,6 +199,7 @@ def getNewTestDate(previous_test_entry):
     prev_date = datetime.datetime.strptime(previous_test_entry['start_datetime'], '%Y-%m-%dT%H:%M:%SZ')
     date = prev_date
     found_dates = []
+    # TODO: make this propose dates within a week +- 2 days instead
     while len(found_dates) < 6:
         date += datetime.timedelta(1)
         if date.strftime('%A') == 'Saturday':
