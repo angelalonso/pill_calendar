@@ -532,7 +532,7 @@ if __name__ == '__main__':
     CAL_NAME = 'Pill_Calendar'
     ZONE = '+02:00'
     FIRSTYEAR = 2012
-    LASTYEAR = 2025
+    LASTYEAR = 2030
 
     cal_file, err = getEnvVar('CAL_FILE')
     if err == 2:
